@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    top.yinn.tools.dozer.DozerAutoConfiguration,  \
+    top.yinn.tools.xss.XssAuthConfiguration,  \
+    top.yinn.tools.validator.ValidatorAutoConfiguration
