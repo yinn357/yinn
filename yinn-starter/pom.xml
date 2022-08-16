@@ -17,7 +17,31 @@
         <module>yinn-tools-starter</module>
         <module>yinn-swagger2-starter</module>
         <module>yinn-j2cache-starter</module>
+        <module>yinn-logging-starter</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>top.yinn</groupId>
+                <artifactId>yinn-framework-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.yinn</groupId>
+                <artifactId>yinn-framework-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.yinn</groupId>
+                <artifactId>yinn-framework-databases</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
 
 </project>

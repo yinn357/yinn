@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <contextName>${spring.application.name}-logback</contextName>
+
+    <springProperty scope="context" name="logPath" source="logging.file.path" defaultValue="logs"/>
+    <!--引入其他配置文件-->
+    <include resource="logback-base.xml"/>
+
+    <!--开发环境-->
+    <springProfile name="dev">
+        <logger name="top.yinn" additivity="false" level="debug">
+            <appender-ref ref="LOG_CONSOLE"/>
+        </logger>
+    </springProfile>
+    <!--测试环境-->
+    <springProfile name="test">
+        <logger name="top.yinn" additivity="false" level="debug">
+            <appender-ref ref="LOG_CONSOLE"/>
+            <appender-ref ref="LOG_FILE"/>
+            <appender-ref ref="LOG_FILE_ERROR"/>
+        </logger>
+    </springProfile>
+    <!--生产环境-->
+    <springProfile name="pro">
+        <logger name="top.yinn" additivity="false" level="info">
+            <appender-ref ref="LOG_FILE"/>
+            <appender-ref ref="LOG_FILE_ERROR"/>
+        </logger>
+    </springProfile>
+
+    <root level="info">
+        <appender-ref ref="LOG_CONSOLE"/>
+        <appender-ref ref="LOG_FILE"/>
+        <appender-ref ref="LOG_FILE_ERROR"/>
+    </root>
+</configuration>

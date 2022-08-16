@@ -1,0 +1,5 @@
+org.springframework.boot.env.EnvironmentPostProcessor=top.yinn.logging.env.LoggingEnvironmentPostProcessor
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    top.yinn.logging.LogAutoConfiguration
+org.springframework.context.ApplicationContextInitializer=\
+    top.yinn.logging.init.ApplicationLoggerInitializer
