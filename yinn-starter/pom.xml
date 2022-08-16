@@ -16,6 +16,7 @@
     <modules>
         <module>yinn-tools-starter</module>
         <module>yinn-swagger2-starter</module>
+        <module>yinn-j2cache-starter</module>
     </modules>
 
 

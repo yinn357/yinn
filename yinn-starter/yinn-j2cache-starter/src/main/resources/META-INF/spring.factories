@@ -1,0 +1,6 @@
+org.springframework.boot.env.EnvironmentPostProcessor=top.yinn.j2cache.env.J2cacheEnvironmentPostProcessor
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    top.yinn.j2cache.MyCacheConfig,  \
+    net.oschina.j2cache.autoconfigure.J2CacheAutoConfiguration,   \
+    net.oschina.j2cache.autoconfigure.J2CacheSpringCacheAutoConfiguration,  \
+    net.oschina.j2cache.autoconfigure.J2CacheSpringRedisAutoConfiguration
