@@ -1,4 +1,4 @@
-package top.yinn.database.properties;
+package top.yinn.common.database.properties;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static top.yinn.database.properties.DatabaseProperties.PREFIX;
+import static top.yinn.common.database.properties.DatabaseProperties.PREFIX;
 
 /**
  * 客户端认证配置

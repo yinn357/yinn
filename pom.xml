@@ -27,9 +27,9 @@
     </licenses>
 
     <modules>
-        <module>yinn-dependencies</module>
         <module>yinn-framework</module>
         <module>yinn-starter</module>
+        <module>yinn-modulars</module>
     </modules>
 
 
@@ -252,12 +252,6 @@
                 </exclusions>
             </dependency>
 
-            <!-- FastDFS文件 -->
-            <dependency>
-                <groupId>com.github.tobato</groupId>
-                <artifactId>fastdfs-client</artifactId>
-                <version>${tobato-fastdfs-client.version}</version>
-            </dependency>
             <!-- 七牛依赖 -->
             <dependency>
                 <groupId>com.qiniu</groupId>

@@ -16,7 +16,6 @@
     <modules>
         <module>yinn-framework-core</module>
         <module>yinn-framework-common</module>
-        <module>yinn-framework-databases</module>
     </modules>
 
     <dependencyManagement>
@@ -30,12 +29,6 @@
             <dependency>
                 <groupId>top.yinn</groupId>
                 <artifactId>yinn-framework-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>top.yinn</groupId>
-                <artifactId>yinn-framework-databases</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

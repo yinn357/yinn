@@ -1,4 +1,4 @@
-package top.yinn.database.mybatis.conditions.update;
+package top.yinn.common.database.mybatis.conditions.update;
 
 import com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper;
 import com.baomidou.mybatisplus.core.conditions.SharedString;
@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
-import top.yinn.database.mybatis.typehandler.BaseLikeTypeHandler;
+import top.yinn.common.database.mybatis.typehandler.BaseLikeTypeHandler;
 
 import java.util.ArrayList;
 import java.util.Collection;

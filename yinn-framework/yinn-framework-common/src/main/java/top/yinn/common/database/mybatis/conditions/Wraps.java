@@ -1,8 +1,8 @@
-package top.yinn.database.mybatis.conditions;
+package top.yinn.common.database.mybatis.conditions;
 
 
-import top.yinn.database.mybatis.conditions.query.LbqWrapper;
-import top.yinn.database.mybatis.conditions.update.LbuWrapper;
+import top.yinn.common.database.mybatis.conditions.query.LbqWrapper;
+import top.yinn.common.database.mybatis.conditions.update.LbuWrapper;
 
 /**
  * Wrappers 工具类， 该方法的主要目的是为了 缩短代码长度

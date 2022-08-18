@@ -1,4 +1,4 @@
-package top.yinn.database.mybatis.typehandler;
+package top.yinn.common.database.mybatis.typehandler;
 
 
 import org.apache.ibatis.type.Alias;

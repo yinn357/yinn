@@ -1,4 +1,4 @@
-package top.yinn.database.datasource;
+package top.yinn.common.database.datasource;
 
 
 import cn.hutool.core.bean.BeanUtil;
@@ -12,7 +12,6 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import top.yinn.database.properties.DatabaseProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
@@ -38,6 +37,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RestController;
+import top.yinn.common.database.properties.DatabaseProperties;
 
 import javax.sql.DataSource;
 import java.lang.annotation.Annotation;

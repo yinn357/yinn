@@ -1,4 +1,4 @@
-package top.yinn.database.parsers;
+package top.yinn.common.database.parsers;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;

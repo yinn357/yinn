@@ -1,4 +1,4 @@
-package top.yinn.database.mybatis.typehandler;
+package top.yinn.common.database.mybatis.typehandler;
 
 import cn.hutool.core.util.StrUtil;
 import org.apache.ibatis.type.BaseTypeHandler;

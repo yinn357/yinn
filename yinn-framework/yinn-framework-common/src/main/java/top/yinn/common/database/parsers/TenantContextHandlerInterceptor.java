@@ -1,4 +1,4 @@
-package top.yinn.database.parsers;
+package top.yinn.common.database.parsers;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

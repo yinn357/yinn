@@ -1,21 +1,21 @@
-package top.yinn.database.datasource;
+package top.yinn.common.database.datasource;
 
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import top.yinn.core.base.id.IdGenerate;
-import top.yinn.core.base.id.SnowflakeIdGenerate;
-import top.yinn.database.mybatis.typehandler.FullLikeTypeHandler;
-import top.yinn.database.mybatis.typehandler.LeftLikeTypeHandler;
-import top.yinn.database.mybatis.typehandler.RightLikeTypeHandler;
-import top.yinn.database.parsers.TenantWebMvcConfigurer;
-import top.yinn.database.properties.DatabaseProperties;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import top.yinn.common.database.mybatis.typehandler.FullLikeTypeHandler;
+import top.yinn.common.database.mybatis.typehandler.LeftLikeTypeHandler;
+import top.yinn.common.database.mybatis.typehandler.RightLikeTypeHandler;
+import top.yinn.common.database.parsers.TenantWebMvcConfigurer;
+import top.yinn.common.database.properties.DatabaseProperties;
+import top.yinn.core.base.id.IdGenerate;
+import top.yinn.core.base.id.SnowflakeIdGenerate;
 
 import java.util.ArrayList;
 import java.util.List;

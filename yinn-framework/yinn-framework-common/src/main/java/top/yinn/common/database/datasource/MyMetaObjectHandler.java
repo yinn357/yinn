@@ -1,4 +1,4 @@
-package top.yinn.database.datasource;
+package top.yinn.common.database.datasource;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
