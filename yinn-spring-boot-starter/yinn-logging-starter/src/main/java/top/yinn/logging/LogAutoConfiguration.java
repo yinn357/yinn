@@ -15,14 +15,14 @@ import top.yinn.logging.aspect.SysLogAspect;
  * <p>
  * 启动条件：
  * 1，存在web环境
- * 2，配置文件中pinda.log.enabled=true
- * 3，配置文件中不存在：pinda.log.enabled 值
+ * 2，配置文件中yinn.log.enabled=true
+ * 3，配置文件中不存在：yinn.log.enabled 值
  */
 @EnableAsync
 @Configuration
 @AllArgsConstructor
 @ConditionalOnWebApplication
-@ConditionalOnProperty(name = "pinda.log.enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(name = "yinn.log.enabled", havingValue = "true", matchIfMissing = true)
 public class LogAutoConfiguration {
 
     @Bean

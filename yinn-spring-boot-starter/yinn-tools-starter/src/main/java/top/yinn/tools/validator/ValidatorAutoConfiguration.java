@@ -3,7 +3,6 @@ package top.yinn.tools.validator;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -26,21 +25,21 @@ public class ValidatorAutoConfiguration {
         return validatorFactory.getValidator();
     }
 
-    /**
-     * Method:  开启快速返回
-     * Description:
-     * 如果参数校验有异常，直接抛异常，不会进入到 controller，使用全局异常拦截进行拦截
-     *
-     * @param
-     * @return org.springframework.validation.beanvalidation.MethodValidationPostProcessor
-     */
-    @Bean
-    public MethodValidationPostProcessor methodValidationPostProcessor(Validator validator) {
-        MethodValidationPostProcessor postProcessor = new MethodValidationPostProcessor();
-        /**设置validator模式为快速失败返回*/
-        postProcessor.setValidator(validator);
-        return postProcessor;
-    }
+    // /**
+    //  * Method:  开启快速返回
+    //  * Description:
+    //  * 如果参数校验有异常，直接抛异常，不会进入到 controller，使用全局异常拦截进行拦截
+    //  *
+    //  * @param
+    //  * @return org.springframework.validation.beanvalidation.MethodValidationPostProcessor
+    //  */
+    // @Bean
+    // public MethodValidationPostProcessor methodValidationPostProcessor(Validator validator) {
+    //     MethodValidationPostProcessor postProcessor = new MethodValidationPostProcessor();
+    //     /**设置validator模式为快速失败返回*/
+    //     postProcessor.setValidator(validator);
+    //     return postProcessor;
+    // }
 
     // @Bean
     // public IConstraintExtract constraintExtract() {

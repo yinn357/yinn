@@ -28,8 +28,9 @@
 
     <modules>
         <module>yinn-framework</module>
-        <module>yinn-starter</module>
+        <module>yinn-spring-boot-starter</module>
         <module>yinn-modulars</module>
+        <module>yinn-start</module>
     </modules>
 
 
@@ -129,7 +130,7 @@
         <mysql.version>6.0.6</mysql.version>
         <knife4j.version>2.0.9</knife4j.version>
         <ulisesbocchio.version>3.0.3</ulisesbocchio.version>
-        <springfox.swagger2.version>2.9.2</springfox.swagger2.version>
+        <springfox.swagger2.version>2.10.5</springfox.swagger2.version>
         <swagger.version>1.5.21</swagger.version>
         <dozer.version>6.5.0</dozer.version>
         <lombok.version>1.18.10</lombok.version>
@@ -150,6 +151,7 @@
         <jjwt.version>0.7.0</jjwt.version>
         <qcloudsms.version>1.0.6</qcloudsms.version>
         <bce-java-sdk.version>0.10.21</bce-java-sdk.version>
+        <sa-token.version>1.31.0</sa-token.version>
 
 
         <hutool.version>5.7.19</hutool.version>
@@ -309,6 +311,7 @@
                 <artifactId>springfox-core</artifactId>
                 <version>${springfox.swagger2.version}</version>
             </dependency>
+
             <!--            <dependency>-->
             <!--                <groupId>com.github.xiaoymin</groupId>-->
             <!--                <artifactId>swagger-bootstrap-ui</artifactId>-->
@@ -319,6 +322,12 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
+                <!--<exclusions>-->
+                <!--    <exclusion>-->
+                <!--        <groupId>io.springfox</groupId>-->
+                <!--        <artifactId>springfox-spring-webmvc</artifactId>-->
+                <!--    </exclusion>-->
+                <!--</exclusions>-->
             </dependency>
 
             <dependency>
@@ -411,6 +420,83 @@
                 <groupId>com.github.whvcse</groupId>
                 <artifactId>easy-captcha</artifactId>
                 <version>${easy-captcha.version}</version>
+            </dependency>
+
+            <!-- Sa-Token 权限认证, 在线文档：http://sa-token.dev33.cn/ -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot-starter</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-core</artifactId>
+                <version>${sa-token.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <!-- Sa-Token 整合 jwt -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-jwt</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <!-- Sa-Token 整合 Redis （使用 jackson 序列化方式） -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-dao-redis-jackson</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <!-- Sa-Token插件：权限缓存与业务缓存分离 -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-alone-redis</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.yinn</groupId>
+                <artifactId>yinn-framework-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.yinn</groupId>
+                <artifactId>yinn-framework-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.yinn</groupId>
+                <artifactId>yinn-tools-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.yinn</groupId>
+                <artifactId>yinn-swagger2-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.yinn</groupId>
+                <artifactId>yinn-logging-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.yinn</groupId>
+                <artifactId>yinn-j2cache-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.yinn</groupId>
+                <artifactId>yinn-satoken-starter</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
         </dependencies>

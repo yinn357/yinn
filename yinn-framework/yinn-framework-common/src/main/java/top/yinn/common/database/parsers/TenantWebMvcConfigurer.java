@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 public class TenantWebMvcConfigurer implements WebMvcConfigurer {
 
-    @Value("${pinda.mysql.database:pd-auth}")
+    @Value("${yinn.mysql.database:yinn-db}")
     private String databaseName;
 
     /**

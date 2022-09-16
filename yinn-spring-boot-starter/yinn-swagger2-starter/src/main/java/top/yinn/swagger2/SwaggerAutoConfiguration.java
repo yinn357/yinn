@@ -1,7 +1,6 @@
 package top.yinn.swagger2;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
+
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -21,6 +20,7 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -91,18 +91,19 @@ public class SwaggerAutoConfiguration implements BeanFactoryAware {
             List<Parameter> parameters = assemblyGlobalOperationParameters(swaggerProperties.getGlobalOperationParameters(),
                     docketInfo.getGlobalOperationParameters());
             Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                    .host(swaggerProperties.getHost())
-                    .apiInfo(apiInfo)
-                    .globalOperationParameters(parameters)
-                    .groupName(docketInfo.getGroup())
-                    .select()
-                    .apis(RequestHandlerSelectors.basePackage(docketInfo.getBasePackage()))
-                    .paths(
-                            Predicates.and(
-                                    Predicates.not(Predicates.or(excludePath)),
-                                    Predicates.or(basePath)
-                            )
-                    )
+		            .host(swaggerProperties.getHost())
+		            .apiInfo(apiInfo)
+		            .globalOperationParameters(parameters)
+		            .groupName(docketInfo.getGroup())
+		            .select()
+		            .apis(RequestHandlerSelectors.basePackage(docketInfo.getBasePackage()))
+		            // .paths(
+		            //         Predicates.and(
+		            //                 Predicates.not(Predicates.or(excludePath)),
+		            //                 Predicates.or(basePath)
+		            //         )
+		            // )
+		            .paths(PathSelectors.any())
                     .build()
                     .securitySchemes(securitySchemes())
                     .securityContexts(securityContexts())
@@ -155,21 +156,22 @@ public class SwaggerAutoConfiguration implements BeanFactoryAware {
         }
 
         return new Docket(DocumentationType.SWAGGER_2)
-                .host(swaggerProperties.getHost())
-                .apiInfo(apiInfo)
-                .groupName(swaggerProperties.getGroup())
-                .globalOperationParameters(
-                        buildGlobalOperationParametersFromSwaggerProperties(
-                                swaggerProperties.getGlobalOperationParameters()))
-                .select()
+		        .host(swaggerProperties.getHost())
+		        .apiInfo(apiInfo)
+		        .groupName(swaggerProperties.getGroup())
+		        .globalOperationParameters(
+				        buildGlobalOperationParametersFromSwaggerProperties(
+						        swaggerProperties.getGlobalOperationParameters()))
+		        .select()
 
-                .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()))
-                .paths(
-                        Predicates.and(
-                                Predicates.not(Predicates.or(excludePath)),
-                                Predicates.or(basePath)
-                        )
-                )
+		        .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()))
+		        // .paths(
+		        //         Predicates.and(
+		        //                 Predicates.not(Predicates.or(excludePath)),
+		        //                 Predicates.or(basePath)
+		        //         )
+		        // )
+		        .paths(PathSelectors.any())
                 .build()
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts())

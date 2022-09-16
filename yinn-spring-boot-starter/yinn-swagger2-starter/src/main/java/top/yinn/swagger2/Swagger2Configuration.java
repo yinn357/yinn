@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 /**
  * Swagger2 启动类
@@ -18,12 +18,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @ConditionalOnProperty(name = "yinn.swagger.enabled", havingValue = "true", matchIfMissing = true)
-@EnableSwagger2
+@EnableSwagger2WebMvc
 @ComponentScan(
-        basePackages = {
-                "com.github.xiaoymin.knife4j.spring.plugin",
-                "com.github.xiaoymin.knife4j.spring.web"
-        }
+		basePackages = {
+				"com.github.xiaoymin.knife4j.spring.plugin",
+				"com.github.xiaoymin.knife4j.spring.web"
+		}
 )
 @Import({BeanValidatorPluginsConfiguration.class})
 public class Swagger2Configuration implements WebMvcConfigurer {

@@ -1,10 +1,8 @@
 package top.yinn.common.handler;
 
+import cn.dev33.satoken.exception.SaTokenException;
 import cn.hutool.core.util.StrUtil;
-import top.yinn.core.base.R;
-import top.yinn.core.exception.BizException;
-import top.yinn.core.exception.code.ExceptionCode;
-import top.yinn.core.utils.StrPool;
+import cn.hutool.json.JSONException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.mybatis.spring.MyBatisSystemException;
@@ -21,6 +19,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
+import top.yinn.core.base.R;
+import top.yinn.core.exception.BizException;
+import top.yinn.core.exception.code.ExceptionCode;
+import top.yinn.core.utils.StrPool;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +32,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static top.yinn.core.exception.code.ExceptionCode.METHOD_NOT_ALLOWED;
-import static top.yinn.core.exception.code.ExceptionCode.REQUIRED_FILE_PARAM_EX;
-import static top.yinn.core.utils.StrPool.EMPTY;
 
 
 /**
@@ -232,6 +230,18 @@ public abstract class DefaultGlobalExceptionHandler {
     public R dataIntegrityViolationException(DataIntegrityViolationException ex, HttpServletRequest request) {
         log.warn("DataIntegrityViolationException:", ex);
         return R.result(ExceptionCode.SQL_EX.getCode(), StrPool.EMPTY, ExceptionCode.SQL_EX.getMsg()).setPath(request.getRequestURI());
+    }
+
+    @ExceptionHandler(JSONException.class)
+    public R JSONException(JSONException ex, HttpServletRequest request) {
+        log.warn("JSONException:", ex);
+        return R.result(ExceptionCode.PARAM_EX.getCode(), StrPool.EMPTY, ExceptionCode.PARAM_EX.getMsg()).setPath(request.getRequestURI());
+    }
+
+    @ExceptionHandler({SaTokenException.class})
+    public R saTokenException(SaTokenException ex, HttpServletRequest request) {
+        log.warn("SaTokenException:", ex);
+        return R.result(ExceptionCode.JWT_SIGNATURE.getCode(), ex.getMessage(), ExceptionCode.JWT_SIGNATURE.getMsg()).setPath(request.getRequestURI());
     }
 
 }

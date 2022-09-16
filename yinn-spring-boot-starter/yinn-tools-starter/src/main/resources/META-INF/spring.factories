@@ -1,3 +1,4 @@
+org.springframework.boot.env.EnvironmentPostProcessor=top.yinn.tools.env.CommonEnvironmentPostProcessor
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     top.yinn.tools.dozer.DozerAutoConfiguration,  \
     top.yinn.tools.xss.XssAuthConfiguration,  \

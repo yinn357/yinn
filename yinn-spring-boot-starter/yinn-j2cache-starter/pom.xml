@@ -18,10 +18,6 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>top.yinn</groupId>
-            <artifactId>yinn-framework-common</artifactId>
-        </dependency>
-        <dependency>
             <groupId>net.oschina.j2cache</groupId>
             <artifactId>j2cache-core</artifactId>
             <exclusions>

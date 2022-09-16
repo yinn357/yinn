@@ -17,21 +17,21 @@ import static top.yinn.common.database.properties.DatabaseProperties.PREFIX;
 @Data
 @NoArgsConstructor
 public class DatabaseProperties {
-    public static final String PREFIX = "pinda.database";
-    /**
-     * 攻击 SQL 阻断解析器
-     */
-    public Boolean isBlockAttack = false;
-    /**
-     * 是否启用数据权限
-     */
-    //private Boolean isDataScope = true;
-    /**
-     * 事务超时时间
-     */
-    private int txTimeout = 60 * 60;
-    /**
-     * 统一管理事务的方法名
+	public static final String PREFIX = "yinn.database";
+	/**
+	 * 攻击 SQL 阻断解析器
+	 */
+	public Boolean isBlockAttack = false;
+	/**
+	 * 是否启用数据权限
+	 */
+	//private Boolean isDataScope = true;
+	/**
+	 * 事务超时时间
+	 */
+	private int txTimeout = 60 * 60;
+	/**
+	 * 统一管理事务的方法名
      */
     private List<String> transactionAttributeList = new ArrayList<>(Arrays.asList("add*", "save*", "insert*",
             "create*", "update*", "edit*", "upload*", "delete*", "remove*",
