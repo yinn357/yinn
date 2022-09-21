@@ -1,9 +1,7 @@
 package top.yinn;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import top.yinn.modulars.test.model.entity.AuthUserEntity;
 import top.yinn.modulars.test.service.AuthUserService;
 
@@ -13,8 +11,8 @@ import java.util.List;
 /**
  * @Author Yinn
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = YinnApplication.class)
+
+@SpringBootTest
 public class TestApplication {
 
 	@Resource

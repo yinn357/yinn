@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.2.RELEASE</version>
+        <version>2.7.3</version>
         <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -112,15 +112,12 @@
     </distributionManagement>
 
     <properties>
+        <!-- JDK8则改为'1.8'  JDK11则改为'11' -->
         <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
-        <spring.cloud.version>Hoxton.SR1</spring.cloud.version>
-        <spring-cloud-alibaba-dependencies.version>2.1.1.RELEASE</spring-cloud-alibaba-dependencies.version>
-        <spring.version>5.2.2.RELEASE</spring.version>
-        <spring-boot-admin.version>2.2.0</spring-boot-admin.version>
-        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <!-- 若变更Spring Boot版本, 上面parent依赖版本也要变 -->
+        <spring.boot.version>2.7.3</spring.boot.version>
+        <spring.version>5.3.22</spring.version>
+
         <mybatis.typehandlers.version>1.0.2</mybatis.typehandlers.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <p6spy.version>3.9.1</p6spy.version>
@@ -132,7 +129,6 @@
         <springfox.swagger2.version>2.10.5</springfox.swagger2.version>
         <swagger.version>1.5.21</swagger.version>
         <dozer.version>6.5.0</dozer.version>
-        <lombok.version>1.18.10</lombok.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <guava.version>20.0</guava.version>
         <tobato-fastdfs-client.version>1.26.6</tobato-fastdfs-client.version>
@@ -150,9 +146,10 @@
         <jjwt.version>0.7.0</jjwt.version>
         <qcloudsms.version>1.0.6</qcloudsms.version>
         <bce-java-sdk.version>0.10.21</bce-java-sdk.version>
+
         <sa-token.version>1.31.0</sa-token.version>
 
-
+        <jackson.version>2.13.3</jackson.version>
         <hutool.version>5.8.5</hutool.version>
         <antisamy.version>1.5.7</antisamy.version>
         <caffeine.version>2.8.0</caffeine.version>
@@ -164,18 +161,15 @@
         <docker.registry>127.0.0.1:5000</docker.registry>
         <!--镜像前缀-->
         <docker.image.prefix>yinn</docker.image.prefix>
+
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencyManagement>
 
         <dependencies>
-            <!--<dependency>-->
-            <!--    <groupId>org.springframework.cloud</groupId>-->
-            <!--    <artifactId>spring-cloud-dependencies</artifactId>-->
-            <!--    <version>${spring.cloud.version}</version>-->
-            <!--    <type>pom</type>-->
-            <!--    <scope>import</scope>-->
-            <!--</dependency>-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-framework-bom</artifactId>
@@ -184,13 +178,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <!--<dependency>-->
-            <!--    <groupId>com.alibaba.cloud</groupId>-->
-            <!--    <artifactId>spring-cloud-alibaba-dependencies</artifactId>-->
-            <!--    <version>${spring-cloud-alibaba-dependencies.version}</version>-->
-            <!--    <type>pom</type>-->
-            <!--    <scope>import</scope>-->
-            <!--</dependency>-->
 
             <dependency>
                 <groupId>org.lionsoul</groupId>
@@ -278,38 +265,38 @@
             </dependency>
 
             <!-- swagger2 -->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${springfox.swagger2.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.swagger</groupId>
-                        <artifactId>swagger-models</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
+            <!--<dependency>-->
+            <!--    <groupId>io.springfox</groupId>-->
+            <!--    <artifactId>springfox-swagger2</artifactId>-->
+            <!--    <version>${springfox.swagger2.version}</version>-->
+            <!--    <exclusions>-->
+            <!--        <exclusion>-->
+            <!--            <groupId>io.swagger</groupId>-->
+            <!--            <artifactId>swagger-models</artifactId>-->
+            <!--        </exclusion>-->
+            <!--    </exclusions>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+            <!--    <groupId>io.swagger</groupId>-->
+            <!--    <artifactId>swagger-annotations</artifactId>-->
+            <!--    <version>${swagger.version}</version>-->
+            <!--</dependency>-->
 
             <dependency>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-models</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-bean-validators</artifactId>
-                <version>${springfox.swagger2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-core</artifactId>
-                <version>${springfox.swagger2.version}</version>
-            </dependency>
+            <!--<dependency>-->
+            <!--    <groupId>io.springfox</groupId>-->
+            <!--    <artifactId>springfox-bean-validators</artifactId>-->
+            <!--    <version>${springfox.swagger2.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+            <!--    <groupId>io.springfox</groupId>-->
+            <!--    <artifactId>springfox-core</artifactId>-->
+            <!--    <version>${springfox.swagger2.version}</version>-->
+            <!--</dependency>-->
 
             <!--            <dependency>-->
             <!--                <groupId>com.github.xiaoymin</groupId>-->
@@ -375,21 +362,6 @@
                 <scope>compile</scope>
             </dependency>
 
-            <!--<dependency>-->
-            <!--    <groupId>de.codecentric</groupId>-->
-            <!--    <artifactId>spring-boot-admin-starter-server</artifactId>-->
-            <!--    <version>${spring-boot-admin.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-            <!--    <groupId>de.codecentric</groupId>-->
-            <!--    <artifactId>spring-boot-admin-server-ui</artifactId>-->
-            <!--    <version>${spring-boot-admin.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-            <!--<groupId>de.codecentric</groupId>-->
-            <!--<artifactId>spring-boot-admin-starter-client</artifactId>-->
-            <!--<version>${spring-boot-admin.version}</version>-->
-            <!--</dependency>-->
 
             <dependency>
                 <groupId>org.owasp.antisamy</groupId>
@@ -519,11 +491,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
