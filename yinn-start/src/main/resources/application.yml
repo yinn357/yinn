@@ -26,7 +26,9 @@ yinn:
         title: 测试文档
         base-package: top.yinn.controller.test
   sa-token:
-    jwt: Mixin
+    # jwt 集成模式  Simple(简单模式)、Mixin(混入模式)、Stateless(无状态模式)
+    # 详细查看sa-token官方文档
+    jwt: Stateless
 
 #j2cache:
 #  l2-cache-open: true #开启二级缓存

@@ -3,8 +3,6 @@ package top.yinn.core.base;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import top.yinn.core.context.BaseContextHandler;
-import top.yinn.core.exception.BizException;
-import top.yinn.core.exception.code.BaseExceptionCode;
 import top.yinn.core.utils.AntiSqlFilter;
 import top.yinn.core.utils.NumberHelper;
 
@@ -61,58 +59,6 @@ public abstract class BaseController {
         return R.success(data);
     }
 
-    public R<Boolean> success() {
-        return R.success();
-    }
-
-    /**
-     * 失败返回
-     *
-     * @param msg
-     * @return
-     */
-    public <T> R<T> fail(String msg) {
-        return R.fail(msg);
-    }
-
-    public <T> R<T> fail(String msg, Object... args) {
-        return R.fail(msg, args);
-    }
-
-    /**
-     * 失败返回
-     *
-     * @param code
-     * @param msg
-     * @return
-     */
-    public <T> R<T> fail(int code, String msg) {
-        return R.fail(code, msg);
-    }
-
-    public <T> R<T> fail(BaseExceptionCode exceptionCode) {
-        return R.fail(exceptionCode);
-    }
-
-    public <T> R<T> fail(BizException exception) {
-        return R.fail(exception);
-    }
-
-    public <T> R<T> fail(Throwable throwable) {
-        return R.fail(throwable);
-    }
-
-    public <T> R<T> validFail(String msg) {
-        return R.validFail(msg);
-    }
-
-    public <T> R<T> validFail(String msg, Object... args) {
-        return R.validFail(msg, args);
-    }
-
-    public <T> R<T> validFail(BaseExceptionCode exceptionCode) {
-        return R.validFail(exceptionCode);
-    }
 
     /**
      * 获取当前用户id

@@ -22,7 +22,6 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import top.yinn.core.base.R;
 import top.yinn.core.exception.BizException;
 import top.yinn.core.exception.code.ExceptionCode;
-import top.yinn.core.utils.StrPool;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +34,7 @@ import java.util.stream.Collectors;
 
 
 /**
- *
+ * @author Yinn
  */
 //@ControllerAdvice(annotations = {RestController.class, Controller.class})
 //@ResponseBody
@@ -44,7 +43,7 @@ public abstract class DefaultGlobalExceptionHandler {
     @ExceptionHandler(BizException.class)
     public R<String> bizException(BizException ex, HttpServletRequest request) {
         log.warn("BizException:", ex);
-        return R.result(ex.getCode(), StrPool.EMPTY, ex.getMessage()).setPath(request.getRequestURI());
+        return R.fail(ex.getCode(), ex.getMessage());
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -53,9 +52,9 @@ public abstract class DefaultGlobalExceptionHandler {
         String message = ex.getMessage();
         if (StrUtil.containsAny(message, "Could not read document:")) {
             String msg = String.format("无法正确的解析json类型的参数：%s", StrUtil.subBetween(message, "Could not read document:", " at "));
-            return R.result(ExceptionCode.PARAM_EX.getCode(), StrPool.EMPTY, msg).setPath(request.getRequestURI());
+            return R.fail(ExceptionCode.PARAM_EX.getValue(), msg);
         }
-        return R.result(ExceptionCode.PARAM_EX.getCode(), StrPool.EMPTY, ExceptionCode.PARAM_EX.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.PARAM_EX);
     }
 
     @ExceptionHandler(BindException.class)
@@ -64,7 +63,7 @@ public abstract class DefaultGlobalExceptionHandler {
         try {
             String msgs = ex.getBindingResult().getFieldError().getDefaultMessage();
             if (StrUtil.isNotEmpty(msgs)) {
-                return R.result(ExceptionCode.PARAM_EX.getCode(), StrPool.EMPTY, msgs).setPath(request.getRequestURI());
+                return R.fail(ExceptionCode.PARAM_EX.getValue(), msgs);
             }
         } catch (Exception ee) {
         }
@@ -75,7 +74,7 @@ public abstract class DefaultGlobalExceptionHandler {
                         .append(".").append(oe.getField())
                         .append("]的传入值:[").append(oe.getRejectedValue()).append("]与预期的字段类型不匹配.")
         );
-        return R.result(ExceptionCode.PARAM_EX.getCode(), StrPool.EMPTY, msg.toString()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.PARAM_EX.getValue(), msg.toString());
     }
 
 
@@ -86,13 +85,13 @@ public abstract class DefaultGlobalExceptionHandler {
         StringBuilder msg = new StringBuilder("参数：[").append(eee.getName())
                 .append("]的传入值：[").append(eee.getValue())
                 .append("]与预期的字段类型：[").append(eee.getRequiredType().getName()).append("]不匹配");
-        return R.result(ExceptionCode.PARAM_EX.getCode(), StrPool.EMPTY, msg.toString()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.PARAM_EX.getValue(), msg.toString());
     }
 
     @ExceptionHandler(IllegalStateException.class)
     public R illegalStateException(IllegalStateException ex, HttpServletRequest request) {
         log.warn("IllegalStateException:", ex);
-        return R.result(ExceptionCode.ILLEGALA_ARGUMENT_EX.getCode(), StrPool.EMPTY, ExceptionCode.ILLEGALA_ARGUMENT_EX.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.ILLEGALA_ARGUMENT_EX);
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
@@ -100,19 +99,19 @@ public abstract class DefaultGlobalExceptionHandler {
         log.warn("MissingServletRequestParameterException:", ex);
         StringBuilder msg = new StringBuilder();
         msg.append("缺少必须的[").append(ex.getParameterType()).append("]类型的参数[").append(ex.getParameterName()).append("]");
-        return R.result(ExceptionCode.ILLEGALA_ARGUMENT_EX.getCode(), StrPool.EMPTY, msg.toString()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.ILLEGALA_ARGUMENT_EX.getValue(), msg.toString());
     }
 
     @ExceptionHandler(NullPointerException.class)
     public R nullPointerException(NullPointerException ex, HttpServletRequest request) {
         log.warn("NullPointerException:", ex);
-        return R.result(ExceptionCode.NULL_POINT_EX.getCode(), StrPool.EMPTY, ExceptionCode.NULL_POINT_EX.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.NULL_POINT_EX);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public R illegalArgumentException(IllegalArgumentException ex, HttpServletRequest request) {
         log.warn("IllegalArgumentException:", ex);
-        return R.result(ExceptionCode.ILLEGALA_ARGUMENT_EX.getCode(), StrPool.EMPTY, ExceptionCode.ILLEGALA_ARGUMENT_EX.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.ILLEGALA_ARGUMENT_EX);
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
@@ -122,15 +121,15 @@ public abstract class DefaultGlobalExceptionHandler {
         if (contentType != null) {
             StringBuilder msg = new StringBuilder();
             msg.append("请求类型(Content-Type)[").append(contentType.toString()).append("] 与实际接口的请求类型不匹配");
-            return R.result(ExceptionCode.MEDIA_TYPE_EX.getCode(), StrPool.EMPTY, msg.toString()).setPath(request.getRequestURI());
+            return R.fail(ExceptionCode.MEDIA_TYPE_EX.getValue(), msg.toString());
         }
-        return R.result(ExceptionCode.MEDIA_TYPE_EX.getCode(), StrPool.EMPTY, "无效的Content-Type类型").setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.MEDIA_TYPE_EX.getValue(), "无效的Content-Type类型");
     }
 
     @ExceptionHandler(MissingServletRequestPartException.class)
     public R missingServletRequestPartException(MissingServletRequestPartException ex, HttpServletRequest request) {
         log.warn("MissingServletRequestPartException:", ex);
-        return R.result(ExceptionCode.REQUIRED_FILE_PARAM_EX.getCode(), StrPool.EMPTY, ExceptionCode.REQUIRED_FILE_PARAM_EX.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.REQUIRED_FILE_PARAM_EX);
     }
 
     @ExceptionHandler(ServletException.class)
@@ -138,15 +137,15 @@ public abstract class DefaultGlobalExceptionHandler {
         log.warn("ServletException:", ex);
         String msg = "UT010016: Not a multi part request";
         if (msg.equalsIgnoreCase(ex.getMessage())) {
-            return R.result(ExceptionCode.REQUIRED_FILE_PARAM_EX.getCode(), StrPool.EMPTY, ExceptionCode.REQUIRED_FILE_PARAM_EX.getMsg());
+            return R.fail(ExceptionCode.REQUIRED_FILE_PARAM_EX);
         }
-        return R.result(ExceptionCode.SYSTEM_BUSY.getCode(), StrPool.EMPTY, ex.getMessage()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.SYSTEM_BUSY.getValue(), ex.getMessage());
     }
 
     @ExceptionHandler(MultipartException.class)
     public R multipartException(MultipartException ex, HttpServletRequest request) {
         log.warn("MultipartException:", ex);
-        return R.result(ExceptionCode.REQUIRED_FILE_PARAM_EX.getCode(), StrPool.EMPTY, ExceptionCode.REQUIRED_FILE_PARAM_EX.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.REQUIRED_FILE_PARAM_EX);
     }
 
     /**
@@ -160,7 +159,7 @@ public abstract class DefaultGlobalExceptionHandler {
         log.warn("ConstraintViolationException:", ex);
         Set<ConstraintViolation<?>> violations = ex.getConstraintViolations();
         String message = violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.joining(";"));
-        return R.result(ExceptionCode.BASE_VALID_PARAM.getCode(), StrPool.EMPTY, message).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.BASE_VALID_PARAM.getValue(), message);
     }
 
     /**
@@ -172,7 +171,7 @@ public abstract class DefaultGlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Object methodArgumentNotValidException(MethodArgumentNotValidException ex, HttpServletRequest request) {
         log.warn("MethodArgumentNotValidException:", ex);
-        return R.result(ExceptionCode.BASE_VALID_PARAM.getCode(), StrPool.EMPTY, ex.getBindingResult().getFieldError().getDefaultMessage()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.BASE_VALID_PARAM.getValue(), ex.getBindingResult().getFieldError().getDefaultMessage());
     }
 
     /**
@@ -187,7 +186,7 @@ public abstract class DefaultGlobalExceptionHandler {
         if (ex.getCause() instanceof BizException) {
             return this.bizException((BizException) ex.getCause(), request);
         }
-        return R.result(ExceptionCode.SYSTEM_BUSY.getCode(), StrPool.EMPTY, ExceptionCode.SYSTEM_BUSY.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.SYSTEM_BUSY);
     }
 
 
@@ -197,7 +196,7 @@ public abstract class DefaultGlobalExceptionHandler {
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
     public R<String> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex, HttpServletRequest request) {
         log.warn("HttpRequestMethodNotSupportedException:", ex);
-        return R.result(ExceptionCode.METHOD_NOT_ALLOWED.getCode(), StrPool.EMPTY, ExceptionCode.METHOD_NOT_ALLOWED.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.METHOD_NOT_ALLOWED);
     }
 
 
@@ -206,9 +205,9 @@ public abstract class DefaultGlobalExceptionHandler {
         log.warn("PersistenceException:", ex);
         if (ex.getCause() instanceof BizException) {
             BizException cause = (BizException) ex.getCause();
-            return R.result(cause.getCode(), StrPool.EMPTY, cause.getMessage());
+            return R.fail(cause.getCode(), cause.getMessage());
         }
-        return R.result(ExceptionCode.SQL_EX.getCode(), StrPool.EMPTY, ExceptionCode.SQL_EX.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.SQL_EX);
     }
 
     @ExceptionHandler(MyBatisSystemException.class)
@@ -217,31 +216,31 @@ public abstract class DefaultGlobalExceptionHandler {
         if (ex.getCause() instanceof PersistenceException) {
             return this.persistenceException((PersistenceException) ex.getCause(), request);
         }
-        return R.result(ExceptionCode.SQL_EX.getCode(), StrPool.EMPTY, ExceptionCode.SQL_EX.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.SQL_EX);
     }
 
     @ExceptionHandler(SQLException.class)
     public R sqlException(SQLException ex, HttpServletRequest request) {
         log.warn("SQLException:", ex);
-        return R.result(ExceptionCode.SQL_EX.getCode(), StrPool.EMPTY, ExceptionCode.SQL_EX.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.SQL_EX);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public R dataIntegrityViolationException(DataIntegrityViolationException ex, HttpServletRequest request) {
         log.warn("DataIntegrityViolationException:", ex);
-        return R.result(ExceptionCode.SQL_EX.getCode(), StrPool.EMPTY, ExceptionCode.SQL_EX.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.SQL_EX);
     }
 
     @ExceptionHandler(JSONException.class)
     public R JSONException(JSONException ex, HttpServletRequest request) {
         log.warn("JSONException:", ex);
-        return R.result(ExceptionCode.PARAM_EX.getCode(), StrPool.EMPTY, ExceptionCode.PARAM_EX.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.PARAM_EX);
     }
 
     @ExceptionHandler({SaTokenException.class})
     public R saTokenException(SaTokenException ex, HttpServletRequest request) {
         log.warn("SaTokenException:", ex);
-        return R.result(ExceptionCode.JWT_SIGNATURE.getCode(), ex.getMessage(), ExceptionCode.JWT_SIGNATURE.getMsg()).setPath(request.getRequestURI());
+        return R.fail(ExceptionCode.JWT_SIGNATURE.getValue(), ExceptionCode.JWT_SIGNATURE.getLabel(), ex.getMessage());
     }
 
 }

@@ -1,6 +1,12 @@
 package top.yinn.core.exception.code;
 
 
+import cn.hutool.http.HttpStatus;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import top.yinn.core.constant.YinnConstant;
+import top.yinn.core.enums.BaseEnum;
+
 /**
  * 全局错误码 10000-15000
  * <p>
@@ -23,11 +29,14 @@ package top.yinn.core.exception.code;
  * 统一监管平台异常 编码 范围：  110000-114999
  * 认证方面的异常编码  范围：115000-115999
  *
+ * @author Yinn
  */
-public enum ExceptionCode implements BaseExceptionCode {
+@Getter
+@AllArgsConstructor
+public enum ExceptionCode implements BaseEnum<Integer> {
 
     //系统相关 start
-    SUCCESS(0, "成功"),
+    SUCCESS(HttpStatus.HTTP_OK, YinnConstant.Message.SUCCESS),
     SYSTEM_BUSY(-1, "系统繁忙~请稍后再试~"),
     SYSTEM_TIMEOUT(-2, "系统维护中~请稍后再试~"),
     PARAM_EX(-3, "参数类型解析异常"),
@@ -76,32 +85,7 @@ public enum ExceptionCode implements BaseExceptionCode {
 
     ;
 
-    private int code;
-    private String msg;
+    private final Integer value;
+    private final String label;
 
-    ExceptionCode(int code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
-
-    @Override
-    public int getCode() {
-        return code;
-    }
-
-    @Override
-    public String getMsg() {
-        return msg;
-    }
-
-
-    public ExceptionCode build(String msg, Object... param) {
-        this.msg = String.format(msg, param);
-        return this;
-    }
-
-    public ExceptionCode param(Object... param) {
-        msg = String.format(msg, param);
-        return this;
-    }
 }

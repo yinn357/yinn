@@ -5,7 +5,7 @@ package top.yinn.j2cache.constant;
  * 关于缓存的 Region集合.
  */
 
-public interface CaffeineRegionConstant {
+public interface CacheKeyConstant {
 	/**
 	 * 默认 2H
 	 */

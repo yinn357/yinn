@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @Setter
 @Accessors(chain = true)
 @ToString(callSuper = true)
-public class Entity<T> extends SuperEntity<T> {
+public class Entity<T extends Serializable> extends SuperEntity<T> implements Serializable {
 
     public static final String UPDATE_TIME = "updateTime";
     public static final String UPDATE_USER = "updateUser";
