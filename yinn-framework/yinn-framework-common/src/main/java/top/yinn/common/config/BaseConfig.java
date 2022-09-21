@@ -12,13 +12,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import top.yinn.core.base.id.CodeGenerate;
-import top.yinn.common.converter.*;
-import top.yinn.common.undertow.UndertowServerFactoryCustomizer;
-import top.yinn.core.utils.DateUtils;
-import top.yinn.core.utils.SpringUtils;
 import io.undertow.Undertow;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -27,6 +21,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import top.yinn.common.converter.*;
+import top.yinn.common.undertow.UndertowServerFactoryCustomizer;
+import top.yinn.core.utils.DateUtils;
+import top.yinn.core.utils.SpringUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -38,8 +36,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import static top.yinn.core.utils.DateUtils.*;
 
 /**
  * 基础配置类
@@ -156,16 +152,6 @@ public abstract class BaseConfig {
 
     //---------------------------------------序列化配置end----------------------------------------------
 
-    /**
-     * 长度都是8位的字符串
-     *
-     * @param machineCode
-     * @return
-     */
-    @Bean("codeGenerate")
-    public CodeGenerate codeGenerate(@Value("${id-generator.machine-code:1}") Long machineCode) {
-        return new CodeGenerate(machineCode.intValue());
-    }
 
     /**
      * Spring 工具类

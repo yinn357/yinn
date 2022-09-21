@@ -21,10 +21,10 @@ yinn:
     docket:
       base:
         title: Yinn接口文档
-        base-package: top.yinn.controller
+        base-package: top.yinn**.controller
       test:
         title: 测试文档
-        base-package: top.yinn.controller.test
+        base-package: top.yinn.modulars.test.controller
   sa-token:
     # jwt 集成模式  Simple(简单模式)、Mixin(混入模式)、Stateless(无状态模式)
     # 详细查看sa-token官方文档
@@ -35,4 +35,6 @@ yinn:
 
 id-generator:
   machine-code: 1  # id生成器机器掩码
-
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl

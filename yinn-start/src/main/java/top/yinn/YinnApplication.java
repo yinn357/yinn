@@ -8,7 +8,6 @@ import top.yinn.core.utils.SpringUtils;
 /**
  * @Author Yinn
  */
-
 @SpringBootApplication
 public class YinnApplication {
 

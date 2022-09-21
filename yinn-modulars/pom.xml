@@ -13,44 +13,13 @@
 
     <name>${project.artifactId}</name>
     <description>Yinn-功能模块</description>
+    <modules>
+        <module>yinn-module-test</module>
+        <module>yinn-module-system</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>top.yinn</groupId>
-                <artifactId>yinn-framework-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>top.yinn</groupId>
-                <artifactId>yinn-framework-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>top.yinn</groupId>
-                <artifactId>yinn-tools-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>top.yinn</groupId>
-                <artifactId>yinn-swagger2-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>top.yinn</groupId>
-                <artifactId>yinn-logging-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>top.yinn</groupId>
-                <artifactId>yinn-j2cache-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -75,6 +44,16 @@
         <dependency>
             <groupId>top.yinn</groupId>
             <artifactId>yinn-j2cache-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>top.yinn</groupId>
+            <artifactId>yinn-satoken-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>top.yinn</groupId>
+            <artifactId>yinn-database-starter</artifactId>
         </dependency>
 
     </dependencies>

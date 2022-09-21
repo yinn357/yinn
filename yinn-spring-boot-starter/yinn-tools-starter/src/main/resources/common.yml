@@ -48,22 +48,3 @@ spring:
         login-password: yinn
 #  main:
 #    allow-bean-definition-overriding: true
-
-mybatis-plus:
-  mapper-locations:
-    - classpath*:mapper/**/*Mapper.xml
-  #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: top.yinn.*.entity;top.yinn.common.database.mybatis.typehandler
-  global-config:
-    db-config:
-      id-type: INPUT
-      insert-strategy: NOT_NULL
-      update-strategy: NOT_NULL
-      select-strategy: NOT_EMPTY
-  configuration:
-    #配置返回数据库(column下划线命名&&返回java实体是驼峰命名)，
-    #自动匹配无需as（没开启这个，SQL需要写as： select user_id as userId）
-    map-underscore-to-camel-case: true
-    cache-enabled: false
-    #配置JdbcTypeForNull, oracle数据库必须配置
-    jdbc-type-for-null: 'null'

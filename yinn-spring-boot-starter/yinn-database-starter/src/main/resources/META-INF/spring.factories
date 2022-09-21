@@ -1,0 +1,4 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+    top.yinn.database.env.MyBatisPlusEnvironmentPostProcessor
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    top.yinn.database.config.MybatisPlusAutoConfiguration

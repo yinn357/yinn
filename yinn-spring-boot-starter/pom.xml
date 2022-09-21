@@ -19,6 +19,7 @@
         <module>yinn-j2cache-starter</module>
         <module>yinn-logging-starter</module>
         <module>yinn-satoken-starter</module>
+        <module>yinn-database-starter</module>
     </modules>
 
     <dependencyManagement>
