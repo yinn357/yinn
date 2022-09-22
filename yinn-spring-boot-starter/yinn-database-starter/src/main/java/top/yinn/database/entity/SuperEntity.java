@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 
 /**
  * 超类基础实体
+ *
+ * @author Yinn
  */
 @Getter
 @Setter

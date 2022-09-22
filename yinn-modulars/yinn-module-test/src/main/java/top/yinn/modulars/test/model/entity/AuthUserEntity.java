@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import top.yinn.database.entity.Entity;
+import top.yinn.database.entity.BaseEntity;
 
 import java.time.LocalDateTime;
 
@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @TableName(value = "sys_auth_user")
-public class AuthUserEntity extends Entity<Long> {
+public class AuthUserEntity extends BaseEntity<Long> {
 
 	private static final long serialVersionUID = 1L;
 
