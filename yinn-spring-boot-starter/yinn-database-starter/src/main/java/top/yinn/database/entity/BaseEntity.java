@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Setter
 @Accessors(chain = true)
 @ToString(callSuper = true)
-public class BaseEntity<T extends Serializable> extends SuperEntity<T> implements Serializable {
+public class BaseEntity<T extends Serializable> extends SuperEntity<T> {
 
     @ApiModelProperty(value = "最后修改时间")
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
