@@ -2,7 +2,7 @@ package top.yinn.database.service.impl;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import top.yinn.database.entity.BaseEntity;
+import top.yinn.database.entity.SuperEntity;
 import top.yinn.database.service.BaseService;
 
 /**
@@ -12,6 +12,6 @@ import top.yinn.database.service.BaseService;
  *
  * @Author Yinn
  */
-public class BaseServiceImpl<M extends BaseMapper<E>, E extends BaseEntity<?>> extends ServiceImpl<M, E> implements BaseService<E> {
+public class BaseServiceImpl<M extends BaseMapper<E>, E extends SuperEntity<?>> extends ServiceImpl<M, E> implements BaseService<E> {
 
 }

@@ -22,6 +22,9 @@ yinn:
       base:
         title: Yinn接口文档
         base-package: top.yinn
+      system:
+        title: 系统基础接口文档
+        base-package: top.yinn.modulars.system.controller
       test:
         title: 测试文档
         base-package: top.yinn.modulars.test.controller

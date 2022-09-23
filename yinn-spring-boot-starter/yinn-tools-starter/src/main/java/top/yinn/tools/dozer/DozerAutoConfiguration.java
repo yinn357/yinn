@@ -31,7 +31,7 @@ import java.io.IOException;
 @EnableConfigurationProperties(ToolsProperties.class)
 @ConditionalOnClass({DozerBeanMapperFactoryBean.class, Mapper.class})
 @ConditionalOnMissingBean({Mapper.class})
-@ConditionalOnProperty(prefix = "yinn.dozer", name = "enabled" ,havingValue = "true" ,matchIfMissing = true)
+@ConditionalOnProperty(prefix = "yinn.dozer", name = "enabled", havingValue = "true", matchIfMissing = false)
 public class DozerAutoConfiguration {
 
     @Value("${yinn.dozer.path:classpath:dozer/*.xml}")

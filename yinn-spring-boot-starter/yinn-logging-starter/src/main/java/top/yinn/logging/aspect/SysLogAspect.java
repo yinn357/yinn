@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import top.yinn.core.base.R;
+import top.yinn.core.base.ApiResult;
 import top.yinn.core.context.BaseContextHandler;
 import top.yinn.logging.entity.OptLogDTO;
 import top.yinn.logging.event.SysLogEvent;
@@ -136,9 +136,9 @@ public class SysLogAspect {
     @AfterReturning(returning = "ret", pointcut = "sysLogAspect()")
     public void doAfterReturning(Object ret) {
         tryCatch((aaa) -> {
-            R result = null;
+            ApiResult result = null;
             if (ret.getClass().isInstance(result)) {
-                result = Convert.convert(R.class, ret, R.success());
+                result = Convert.convert(ApiResult.class, ret, ApiResult.success());
             }
             OptLogDTO sysLog = get();
             if (result == null) {
