@@ -149,6 +149,7 @@
 
         <sa-token.version>1.31.0</sa-token.version>
 
+        <transmittable-thread-local.version>2.12.1</transmittable-thread-local.version>
         <jackson.version>2.13.3</jackson.version>
         <hutool.version>5.8.5</hutool.version>
         <antisamy.version>1.5.7</antisamy.version>
@@ -391,6 +392,13 @@
                 <groupId>com.github.whvcse</groupId>
                 <artifactId>easy-captcha</artifactId>
                 <version>${easy-captcha.version}</version>
+            </dependency>
+
+            <!-- CORE dependencies -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
             </dependency>
 
             <!-- Sa-Token 权限认证, 在线文档：http://sa-token.dev33.cn/ -->
