@@ -1,5 +1,7 @@
 package top.yinn.core.base;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,6 +46,23 @@ public class PageResult<T extends Serializable> implements Serializable {
 		this.size = pageParam.getPageSize();
 		this.total = 0L;
 		this.records = Collections.emptyList();
+	}
+
+	/**
+	 * MyBatis Page转换为 PageResult
+	 *
+	 * @param entityPage Mybatis分页对象
+	 * @param targetType 列表目标实体
+	 * @param <T>
+	 * @return PageResult
+	 */
+	public static <T extends Serializable> PageResult<T> convert(IPage<?> entityPage, Class<T> targetType) {
+		return new PageResult<T>()
+				.setCurrent(entityPage.getCurrent())
+				.setSize(entityPage.getSize())
+				.setTotal(entityPage.getTotal())
+				.setRecords(BeanUtil.copyToList(entityPage.getRecords(), targetType))
+				;
 	}
 
 }

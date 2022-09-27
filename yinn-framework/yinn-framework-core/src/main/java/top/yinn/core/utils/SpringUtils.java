@@ -74,8 +74,7 @@ public class SpringUtils {
 	 * 输出项目基本信息
 	 *
 	 * @param application main
-	 * @author miaoyj
-	 * @since 2020-11-26
+	 * @author Yinn
 	 */
 	public static void appLog(ConfigurableApplicationContext application) {
 		try {

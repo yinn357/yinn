@@ -149,6 +149,32 @@ public interface BaseEnum<T> extends Serializable {
     }
 
     /**
+     * 断言为True时抛出异常
+     * 注意：枚举选项的 value 建议为整数类型
+     *
+     * @param flag
+     * @param templateParams label 中如果有占位符的话，向里面填充的模板参数
+     */
+    default void assertIsTrue(boolean flag, Object... templateParams) {
+        if (!flag) {
+            return;
+        }
+
+        throw new BizException(this.convertValue2Int(), this.formatLabel(templateParams));
+    }
+
+    /**
+     * 断言为False时抛出异常
+     * 注意：枚举选项的 value 建议为整数类型
+     *
+     * @param flag
+     * @param templateParams label 中如果有占位符的话，向里面填充的模板参数
+     */
+    default void assertIsFalse(boolean flag, Object... templateParams) {
+        assertIsTrue(!flag, templateParams);
+    }
+
+    /**
      * 断言不为null
      * 注意：枚举选项的 value 建议为整数类型
      *

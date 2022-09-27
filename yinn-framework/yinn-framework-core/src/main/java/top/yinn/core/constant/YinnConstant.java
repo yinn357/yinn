@@ -30,6 +30,7 @@ public interface YinnConstant {
 		String UPDATE_USER = "updateUser";
 		String DELETED = "deleted";
 		String VERSION = "version";
+		String SQL_LIMIT_1 = " LIMIT 1";
 	}
 
 	interface Jackson {
