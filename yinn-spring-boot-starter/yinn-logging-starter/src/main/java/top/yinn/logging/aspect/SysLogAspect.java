@@ -15,7 +15,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import top.yinn.core.base.ApiResult;
-import top.yinn.core.context.BaseContextHandler;
+import top.yinn.core.context.UserContextHolder;
 import top.yinn.logging.entity.OptLogDTO;
 import top.yinn.logging.event.SysLogEvent;
 import top.yinn.logging.util.LogUtil;
@@ -63,8 +63,8 @@ public class SysLogAspect {
         tryCatch((val) -> {
             // 开始时间
             OptLogDTO sysLog = get();
-            sysLog.setCreateUser(BaseContextHandler.getUserId());
-            sysLog.setUserName(BaseContextHandler.getName());
+            sysLog.setCreateUser(UserContextHolder.getUserId());
+            sysLog.setUserName(UserContextHolder.getUserName());
             String controllerDescription = "";
             Api api = joinPoint.getTarget().getClass().getAnnotation(Api.class);
             if (api != null) {
