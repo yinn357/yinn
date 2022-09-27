@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
+@SuperBuilder
 @Accessors(chain = true)
 @ToString(callSuper = true)
 public class BaseEntity<T extends Serializable> extends SuperEntity<T> {

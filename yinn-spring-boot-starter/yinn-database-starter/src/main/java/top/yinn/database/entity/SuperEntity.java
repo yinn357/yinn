@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 import top.yinn.core.exception.BizException;
 
 import javax.validation.constraints.NotNull;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
+@SuperBuilder
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor

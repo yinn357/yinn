@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 import top.yinn.database.entity.BaseEntity;
 
 
@@ -21,6 +22,7 @@ import top.yinn.database.entity.BaseEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@SuperBuilder
 @TableName(value = "sys_auth_role")
 public class RoleEntity extends BaseEntity<Long> {
 
