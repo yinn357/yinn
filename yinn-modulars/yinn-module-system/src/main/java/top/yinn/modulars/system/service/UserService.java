@@ -1,7 +1,9 @@
 package top.yinn.modulars.system.service;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
@@ -38,11 +40,7 @@ public class UserService extends BaseServiceImpl<UserMapper, UserEntity> {
 	public PageResult<UserVO> list(PageParam pageParam, UserDTO dto) {
 		Page<UserEntity> entityPage = this.page(
 				new Page<>(pageParam.getPageNum(), pageParam.getPageSize()),
-				new LambdaQueryWrapper<UserEntity>()
-						.like(StrUtil.isNotEmpty(dto.getNickName()), UserEntity::getNickName, dto.getNickName())
-						.like(StrUtil.isNotEmpty(dto.getAccount()), UserEntity::getAccount, dto.getAccount())
-						.orderByDesc(UserEntity::getCreateTime)
-		);
+				buildQueryWrapper(dto));
 		return PageResult.convert(entityPage, UserVO.class);
 	}
 
@@ -64,27 +62,27 @@ public class UserService extends BaseServiceImpl<UserMapper, UserEntity> {
 	 * @return VO Or 抛出无效Id异常
 	 */
 	public UserVO getOneById(Long id, boolean checkId) {
-		UserEntity userEntity = this.getById(id);
+		UserEntity entity = this.getById(id);
 		if (checkId) {
-			ExceptionCode.INVALID_ID.assertNotNull(userEntity);
+			ExceptionCode.INVALID_ID.assertNotNull(entity);
 		}
 
-		return BeanUtil.toBean(userEntity, UserVO.class);
+		return BeanUtil.toBean(entity, UserVO.class);
 	}
 
 	/**
 	 * 用户管理-新增或更新
 	 *
-	 * @param userDTO
+	 * @param dto
 	 * @return 用户Id
 	 */
-	public Long saveOrUpdate(UserInsertOrUpdateDTO userDTO) {
-		UserEntity userEntity = BeanUtil.toBean(userDTO, UserEntity.class);
+	public Long saveOrUpdate(UserInsertOrUpdateDTO dto) {
+		UserEntity entity = BeanUtil.toBean(dto, UserEntity.class);
 		// 用户密码加密
-		userEntity.setPassword(PwdUtil.encrypt(userEntity.getPassword()));
-		this.saveOrUpdate(userEntity);
+		entity.setPassword(PwdUtil.encrypt(entity.getPassword()));
+		this.saveOrUpdate(entity);
 
-		return userEntity.getId();
+		return entity.getId();
 	}
 
 
@@ -101,5 +99,27 @@ public class UserService extends BaseServiceImpl<UserMapper, UserEntity> {
 				.lastLoginTime(lastLoginTime)
 				.build();
 		return this.updateById(userEntity);
+	}
+
+
+    /*
+    ----------------------------------------------------------------
+                        私有方法 private methods
+    ----------------------------------------------------------------
+     */
+
+
+	/**
+	 * 构建查询条件QueryWrapper
+	 */
+	private Wrapper<UserEntity> buildQueryWrapper(UserDTO dto) {
+		return new LambdaQueryWrapper<UserEntity>()
+				.like(StrUtil.isNotEmpty(dto.getNickName()), UserEntity::getNickName, dto.getNickName())
+				.like(StrUtil.isNotEmpty(dto.getAccount()), UserEntity::getAccount, dto.getAccount())
+				.orderByDesc(UserEntity::getCreateTime)
+				// 时间区间
+				.between(ObjectUtil.isNotNull(dto.getBeginTime()) && ObjectUtil.isNotNull(dto.getEndTime()), UserEntity::getCreateTime, dto.getBeginTime(), dto.getEndTime())
+				// 排序
+				.orderByDesc(UserEntity::getCreateTime);
 	}
 }
