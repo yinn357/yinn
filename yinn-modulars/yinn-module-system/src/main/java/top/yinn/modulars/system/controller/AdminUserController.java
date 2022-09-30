@@ -13,6 +13,7 @@ import top.yinn.core.constant.YinnConstant;
 import top.yinn.database.id.IdsDTO;
 import top.yinn.modulars.system.constant.SysConstant;
 import top.yinn.modulars.system.model.dto.UserDTO;
+import top.yinn.modulars.system.model.dto.UserInsertOrUpdateDTO;
 import top.yinn.modulars.system.model.vo.UserVO;
 import top.yinn.modulars.system.service.UserService;
 
@@ -55,7 +56,7 @@ public class AdminUserController {
     // @SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.CREATE)
     @ApiOperation(value = "新增", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping
-    public ApiResult<?> insert(@RequestBody @Valid UserDTO dto) {
+    public ApiResult<?> insert(@RequestBody @Valid UserInsertOrUpdateDTO dto) {
         dto.setId(null);
         userService.saveOrUpdate(dto);
         return ApiResult.success();
@@ -64,7 +65,7 @@ public class AdminUserController {
     // @SaCheckPermission( value = PERMISSION_PREFIX + YinnConstant.Permission.UPDATE)
     @ApiOperation(value = "编辑", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PutMapping(value = "/{id}")
-    public ApiResult<?> update(@PathVariable Long id, @RequestBody @Valid UserDTO dto) {
+    public ApiResult<?> update(@PathVariable Long id, @RequestBody @Valid UserInsertOrUpdateDTO dto) {
         dto.setId(id);
         userService.saveOrUpdate(dto);
         return ApiResult.success();

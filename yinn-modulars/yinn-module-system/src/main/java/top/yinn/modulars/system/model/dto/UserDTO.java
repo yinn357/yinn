@@ -30,9 +30,6 @@ public class UserDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "主键ID", hidden = true)
-	private Long id;
-
 	@ApiModelProperty(value = "账号(关键词)")
 	private String account;
 

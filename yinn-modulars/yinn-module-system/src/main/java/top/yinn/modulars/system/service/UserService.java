@@ -14,6 +14,7 @@ import top.yinn.core.utils.PwdUtil;
 import top.yinn.database.service.impl.BaseServiceImpl;
 import top.yinn.modulars.system.mapper.UserMapper;
 import top.yinn.modulars.system.model.dto.UserDTO;
+import top.yinn.modulars.system.model.dto.UserInsertOrUpdateDTO;
 import top.yinn.modulars.system.model.entity.UserEntity;
 import top.yinn.modulars.system.model.vo.UserVO;
 
@@ -77,7 +78,7 @@ public class UserService extends BaseServiceImpl<UserMapper, UserEntity> {
 	 * @param userDTO
 	 * @return 用户Id
 	 */
-	public Long saveOrUpdate(UserDTO userDTO) {
+	public Long saveOrUpdate(UserInsertOrUpdateDTO userDTO) {
 		UserEntity userEntity = BeanUtil.toBean(userDTO, UserEntity.class);
 		// 用户密码加密
 		userEntity.setPassword(PwdUtil.encrypt(userEntity.getPassword()));
