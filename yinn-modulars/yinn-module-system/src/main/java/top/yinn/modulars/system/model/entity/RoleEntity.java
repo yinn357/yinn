@@ -19,10 +19,10 @@ import top.yinn.database.entity.BaseEntity;
  */
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@SuperBuilder
 @TableName(value = "sys_auth_role")
 public class RoleEntity extends BaseEntity<Long> {
 
@@ -30,15 +30,15 @@ public class RoleEntity extends BaseEntity<Long> {
 
 
 	@ApiModelProperty(value = "角色名称")
-	@TableField(value = "name")
+	@TableField(value = "`name`")
 	private String name;
 
 	@ApiModelProperty(value = "角色编码")
-	@TableField(value = "code")
+	@TableField(value = "`code`")
 	private String code;
 
 	@ApiModelProperty(value = "角色描述")
-	@TableField(value = "describe")
+	@TableField(value = "`describe`")
 	private String describe;
 
 	@ApiModelProperty(value = "是否内置角色 （1是 0否）")

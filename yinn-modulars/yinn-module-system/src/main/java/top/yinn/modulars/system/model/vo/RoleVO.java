@@ -1,5 +1,6 @@
 package top.yinn.modulars.system.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -7,14 +8,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
+import org.springframework.format.annotation.DateTimeFormat;
+import top.yinn.core.constant.YinnConstant;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 
 /**
- * 角色 BO
+ * 角色 VO
  *
- * @author YinnInsertOrUpdate
+ * @author Yinn
  */
 @ApiModel(value = "角色")
 @Accessors(chain = true)
@@ -41,10 +45,14 @@ public class RoleVO implements Serializable {
 	@ApiModelProperty(value = "是否内置角色 （1是 0否）")
 	private Boolean readonly;
 
-	@ApiModelProperty(value = "创建人id")
-	private Long createUser;
+	@ApiModelProperty(value = "创建时间")
+	@DateTimeFormat(pattern = YinnConstant.Jackson.DATE_TIME_FORMAT)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = YinnConstant.Jackson.DATE_TIME_FORMAT)
+	private LocalDateTime createTime;
 
-	@ApiModelProperty(value = "更新人id")
-	private Long updateUser;
+	@ApiModelProperty(value = "更新时间")
+	@DateTimeFormat(pattern = YinnConstant.Jackson.DATE_TIME_FORMAT)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = YinnConstant.Jackson.DATE_TIME_FORMAT)
+	private LocalDateTime updateTime;
 
 }

@@ -31,11 +31,11 @@ public class RoleMenuInsertOrUpdateDTO implements Serializable {
 	private Long id;
 
 	@ApiModelProperty(value = "菜单/权限id #sys_auth_menu", required = true)
-	@NotNull(message = "菜单/权限id 不能为空")
+	@NotNull(message = "菜单/权限id #sys_auth_menu不能为空")
 	private Long menuId;
 
-	@ApiModelProperty(value = "角色id", required = true)
-	@NotNull(message = "角色id不能为空")
+	@ApiModelProperty(value = "角色id #sys_auth_role", required = true)
+	@NotNull(message = "角色id #sys_auth_role不能为空")
 	private Long roleId;
 
 }

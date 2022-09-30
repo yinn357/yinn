@@ -13,8 +13,7 @@ import java.io.Serializable;
 
 
 /**
- * 后台管理-新增/编辑角色分配
- * 账号角色绑定 DTO
+ * 后台管理-新增/编辑角色分配 账号角色绑定 DTO
  *
  * @author Yinn
  */

@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
-import top.yinn.database.entity.SuperEntity;
+import top.yinn.database.entity.BaseEntity;
 
 
 /**
@@ -19,12 +19,12 @@ import top.yinn.database.entity.SuperEntity;
  */
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@SuperBuilder
 @TableName(value = "sys_auth_role_menu")
-public class RoleMenuEntity extends SuperEntity<Long> {
+public class RoleMenuEntity extends BaseEntity<Long> {
 
 	private static final long serialVersionUID = 1L;
 

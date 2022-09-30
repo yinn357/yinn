@@ -46,11 +46,11 @@ public class RoleDTO implements Serializable {
 	@ApiModelProperty(value = "时间区间起")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = YinnConstant.Jackson.DATE_TIME_FORMAT)
 	@DateTimeFormat(pattern = YinnConstant.Jackson.DATE_TIME_FORMAT)
-	private LocalDateTime beginAt;
+	private LocalDateTime beginTime;
 
 	@ApiModelProperty(value = "时间区间止")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = YinnConstant.Jackson.DATE_TIME_FORMAT)
 	@DateTimeFormat(pattern = YinnConstant.Jackson.DATE_TIME_FORMAT)
-	private LocalDateTime endAt;
+	private LocalDateTime endTime;
 
 }

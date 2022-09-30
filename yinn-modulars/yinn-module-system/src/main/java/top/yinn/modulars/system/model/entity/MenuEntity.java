@@ -19,10 +19,10 @@ import top.yinn.database.entity.BaseEntity;
  */
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@SuperBuilder
 @TableName(value = "sys_auth_menu")
 public class MenuEntity extends BaseEntity<Long> {
 
