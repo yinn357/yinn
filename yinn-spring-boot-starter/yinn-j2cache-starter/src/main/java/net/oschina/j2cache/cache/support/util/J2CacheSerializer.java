@@ -14,7 +14,7 @@ public class J2CacheSerializer implements RedisSerializer<Object> {
         try {
             return SerializationUtils.serialize(t);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            // Auto-generated catch block
             e.printStackTrace();
         }
         return null;
@@ -25,7 +25,7 @@ public class J2CacheSerializer implements RedisSerializer<Object> {
         try {
             return SerializationUtils.deserialize(bytes);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+	        // Auto-generated catch block
             e.printStackTrace();
         }
         return null;

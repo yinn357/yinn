@@ -37,7 +37,7 @@ public class XssAuthConfiguration {
      */
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {
-        //TODO 想想这里如何扩展
+        // 想想这里如何扩展
 
         FilterRegistrationBean filterRegistration = new FilterRegistrationBean(new XssFilter());
         filterRegistration.addUrlPatterns("/*");
