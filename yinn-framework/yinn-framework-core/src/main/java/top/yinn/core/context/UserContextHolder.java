@@ -62,7 +62,7 @@ public class UserContextHolder {
      */
     public String getUserName() {
         UserContext context = getUserContext();
-        return context == null ? null : context.getUserName();
+        return context == null ? null : context.getAccount();
     }
 
     /**
@@ -72,7 +72,7 @@ public class UserContextHolder {
      */
     public String getUserPhoneNo() {
         UserContext context = getUserContext();
-        return context == null ? null : context.getUserPhoneNo();
+        return context == null ? null : context.getMobile();
     }
 
     /**

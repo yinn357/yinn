@@ -17,6 +17,8 @@ import top.yinn.modulars.system.model.dto.UserDTO;
 import top.yinn.modulars.system.model.entity.UserEntity;
 import top.yinn.modulars.system.model.vo.UserVO;
 
+import java.time.LocalDateTime;
+
 
 /**
  * 用户
@@ -84,4 +86,19 @@ public class UserService extends BaseServiceImpl<UserMapper, UserEntity> {
 		return userEntity.getId();
 	}
 
+
+	/**
+	 * 更新用户登录时间
+	 *
+	 * @param userId        用户Id
+	 * @param lastLoginTime 最后登录最近
+	 * @return
+	 */
+	public boolean updateLastLoginTime(Long userId, LocalDateTime lastLoginTime) {
+		UserEntity userEntity = UserEntity.builder()
+				.id(userId)
+				.lastLoginTime(lastLoginTime)
+				.build();
+		return this.updateById(userEntity);
+	}
 }

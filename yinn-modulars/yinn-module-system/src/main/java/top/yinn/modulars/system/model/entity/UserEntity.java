@@ -59,6 +59,10 @@ public class UserEntity extends BaseEntity<Long> {
 	@TableField(value = "avatar")
 	private String avatar;
 
+	@ApiModelProperty(value = "用户状态（1正常 0禁用）")
+	@TableField(value = "status")
+	private Boolean status;
+
 	@ApiModelProperty(value = "最后登录时间")
 	@TableField(value = "last_login_time")
 	private LocalDateTime lastLoginTime;
