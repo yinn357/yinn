@@ -27,8 +27,7 @@ public class AuthService {
 	 * 用户登录
 	 */
 	public UserLoginVO login(UserLoginDTO dto) {
-		// 校验验证码
-		// 暂时不做后续处理
+		//TODO 校验验证码
 
 		// 根据账号查询用户信息
 		UserEntity loginUser = userService.getOne(UserEntity::getAccount, dto.getAccount());
@@ -45,8 +44,7 @@ public class AuthService {
 		// 更新用户最后登录时间
 		userService.updateLastLoginTime(loginUser.getId(), LocalDateTimeUtil.now());
 
-		// 查询用户角色/权限信息
-
+		// TODO 查询用户角色/权限信息
 
 		// 包装返回体
 		UserLoginVO userLoginVO = BeanUtil.toBean(loginUser, UserLoginVO.class);
