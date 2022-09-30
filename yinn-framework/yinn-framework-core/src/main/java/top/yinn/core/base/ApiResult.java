@@ -82,8 +82,5 @@ public class ApiResult<T> implements Serializable {
         return (ApiResult<T>) ApiResult.builder().code(code).msg(msg).data(data).build();
     }
 
-
-    public boolean isSuccess() {
-        return this.getCode() == ExceptionCode.SUCCESS.getValue();
-    }
+    
 }

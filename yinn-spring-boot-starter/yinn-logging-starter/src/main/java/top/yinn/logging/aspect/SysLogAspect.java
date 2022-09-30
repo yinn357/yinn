@@ -16,6 +16,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import top.yinn.core.base.ApiResult;
 import top.yinn.core.context.UserContextHolder;
+import top.yinn.core.exception.code.ExceptionCode;
 import top.yinn.logging.entity.OptLogDTO;
 import top.yinn.logging.event.SysLogEvent;
 import top.yinn.logging.util.LogUtil;
@@ -144,7 +145,7 @@ public class SysLogAspect {
             if (result == null) {
                 sysLog.setType("OPT");
             } else {
-                if (result.isSuccess()) {
+                if (result.getCode() == ExceptionCode.SUCCESS.getValue()) {
                     sysLog.setType("OPT");
                 } else {
                     sysLog.setType("EX");
