@@ -1,6 +1,7 @@
 package top.yinn.modulars.system.service;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -19,6 +20,9 @@ import top.yinn.modulars.system.model.dto.RoleInsertOrUpdateDTO;
 import top.yinn.modulars.system.model.entity.RoleEntity;
 import top.yinn.modulars.system.model.vo.RoleVO;
 
+import java.util.List;
+import java.util.Set;
+
 
 /**
  * 角色
@@ -30,6 +34,8 @@ import top.yinn.modulars.system.model.vo.RoleVO;
 @RequiredArgsConstructor
 public class RoleService extends BaseServiceImpl<RoleMapper, RoleEntity> {
 
+
+	private final UserRoleService userRoleService;
 
 	/**
 	 * 后台-分页列表
@@ -82,6 +88,23 @@ public class RoleService extends BaseServiceImpl<RoleMapper, RoleEntity> {
 		return entity.getId();
 	}
 
+	/**
+	 * 取用户ID拥有角色对应的
+	 *
+	 * @param userId 用户ID
+	 * @return 失败返回空列表
+	 */
+	public List<RoleEntity> listByUserId(Long userId) {
+		Set<Long> roleIds = userRoleService.listRoleIdsByUserId(userId);
+		if (CollUtil.isEmpty(roleIds)) {
+			return CollUtil.newArrayList();
+		}
+		return this.list(
+				new LambdaQueryWrapper<RoleEntity>()
+						.select(RoleEntity::getId, RoleEntity::getName, RoleEntity::getCode)
+						.in(RoleEntity::getId, roleIds)
+		);
+	}
 
 
     /*

@@ -20,6 +20,8 @@ public enum UserErrorEnum implements BaseEnum<Integer> {
 
 	INCORRECT_OLD_PASSWORD(40001, "原密码有误"),
 
+	USER_ID_INVALID(40001, "无效的用户ID"),
+
 	NO_ROLE_AVAILABLE_FOR_CURRENT_USER(40001, "当前用户没有可用角色"),
 
 	NO_MENU_AVAILABLE_FOR_CURRENT_ROLE(40001, "当前角色没有可用菜单"),

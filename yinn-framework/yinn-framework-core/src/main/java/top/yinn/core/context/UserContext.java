@@ -30,7 +30,7 @@ public class UserContext implements Serializable {
 	public static final String CAMEL_NAME = "userContext" ;
 
 	@ApiModelProperty(value = "用户ID")
-	private Long userId;
+	private Long id;
 
 	@ApiModelProperty(value = "用户账号")
 	private String account;
@@ -45,7 +45,7 @@ public class UserContext implements Serializable {
 	private BaseEnum<?> userType;
 
 	@ApiModelProperty(value = "用户拥有角色ID", notes = "后台管理使用", example = "[1, 2, 3]")
-	private Set<Long> rolesIds;
+	private Set<Long> roleIds;
 
 	@ApiModelProperty(value = "用户拥有角色名称", notes = "后台管理使用", example = "[SuperAdmin, Admin, CEO]")
 	private List<String> roles;

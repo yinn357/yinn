@@ -1,5 +1,6 @@
 package top.yinn.modulars.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -39,21 +40,21 @@ public class AdminRoleController {
 
 	private final RoleService roleService;
 
-	// @SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.RETRIEVE)
+	@SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.RETRIEVE)
 	@ApiOperation(value = "分页列表", produces = MediaType.APPLICATION_JSON_VALUE)
 	@GetMapping
 	public ApiResult<PageResult<RoleVO>> list(PageParam pageParam, RoleDTO dto) {
 		return ApiResult.data(roleService.list(pageParam, dto));
 	}
 
-	// @SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.RETRIEVE)
+	@SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.RETRIEVE)
 	@ApiOperation(value = "详情", produces = MediaType.APPLICATION_JSON_VALUE)
 	@GetMapping(value = "/{id}")
 	public ApiResult<RoleVO> getById(@PathVariable Long id) {
 		return ApiResult.data(roleService.getOneById(id, true));
 	}
 
-	// @SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.CREATE)
+	@SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.CREATE)
 	@ApiOperation(value = "新增", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PostMapping
 	public ApiResult<?> insert(@RequestBody @Valid RoleInsertOrUpdateDTO dto) {
@@ -62,7 +63,7 @@ public class AdminRoleController {
 		return ApiResult.success();
 	}
 
-	// @SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.UPDATE)
+	@SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.UPDATE)
 	@ApiOperation(value = "编辑", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PutMapping(value = "/{id}")
 	public ApiResult<?> update(@PathVariable Long id, @RequestBody @Valid RoleInsertOrUpdateDTO dto) {
@@ -71,7 +72,7 @@ public class AdminRoleController {
 		return ApiResult.success();
 	}
 
-	// @SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.DELETE)
+	@SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.DELETE)
 	@ApiOperation(value = "删除", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@DeleteMapping
 	public ApiResult<?> delete(@RequestBody @Valid IdsDTO<Long> dto) {

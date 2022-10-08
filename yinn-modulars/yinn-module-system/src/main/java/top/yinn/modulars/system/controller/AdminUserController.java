@@ -36,7 +36,7 @@ public class AdminUserController {
     /**
      * 功能权限串前缀
      */
-    private static final String PERMISSION_PREFIX = "system:User:";
+    private static final String PERMISSION_PREFIX = "system:user:";
 
     private final UserService userService;
 

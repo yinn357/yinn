@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -41,13 +40,10 @@ public class UserLoginVO {
 	@ApiModelProperty(value = "对应角色ID")
 	private Set<Long> roleIds;
 
-	@ApiModelProperty(value = "对应角色名")
+	@ApiModelProperty(value = "对应角色名", example = "[SuperAdmin, Admin, CEO]")
 	private List<String> roles;
 
 	@ApiModelProperty(value = "所有拥有权限名")
 	private Set<String> permissions;
-
-	@ApiModelProperty(value = "角色ID-对应权限名 Map")
-	private Map<Long, Set<String>> roleIdPermissionMap;
 
 }

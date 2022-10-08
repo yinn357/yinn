@@ -33,8 +33,8 @@ yinn:
     # 详细查看sa-token官方文档
     jwt: Mixin
 
-#j2cache:
-#  l2-cache-open: true #开启二级缓存
+j2cache:
+  l2-cache-open: true #开启(redis)二级缓存
 
 mybatis-plus:
   configuration:

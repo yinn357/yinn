@@ -52,7 +52,7 @@ public class UserContextHolder {
      */
     public Long getUserId() {
         UserContext context = getUserContext();
-        return context == null ? null : context.getUserId();
+        return context == null ? null : context.getId();
     }
 
     /**

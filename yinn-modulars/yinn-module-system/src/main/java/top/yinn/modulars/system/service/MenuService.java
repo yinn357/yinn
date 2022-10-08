@@ -1,6 +1,7 @@
 package top.yinn.modulars.system.service;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -8,16 +9,25 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.oschina.j2cache.CacheChannel;
 import org.springframework.stereotype.Service;
 import top.yinn.core.base.PageParam;
 import top.yinn.core.base.PageResult;
+import top.yinn.core.constant.YinnConstant;
 import top.yinn.core.exception.code.ExceptionCode;
+import top.yinn.core.utils.StrPool;
 import top.yinn.database.service.impl.BaseServiceImpl;
+import top.yinn.j2cache.constant.CacheRegionConstant;
+import top.yinn.modulars.system.constant.SysConstant;
 import top.yinn.modulars.system.mapper.MenuMapper;
 import top.yinn.modulars.system.model.dto.MenuDTO;
 import top.yinn.modulars.system.model.dto.MenuInsertOrUpdateDTO;
 import top.yinn.modulars.system.model.entity.MenuEntity;
 import top.yinn.modulars.system.model.vo.MenuVO;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -30,6 +40,10 @@ import top.yinn.modulars.system.model.vo.MenuVO;
 @RequiredArgsConstructor
 public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 
+
+	private final RoleMenuService roleMenuService;
+
+	private final CacheChannel cacheChannel;
 
 	/**
 	 * 后台-分页列表
@@ -82,6 +96,48 @@ public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 		return entity.getId();
 	}
 
+	/**
+	 * 获取角色ID 对应的权限
+	 *
+	 * @param roleId 角色ID
+	 * @return 失败返回空列表
+	 */
+	// 内部调用注解不生效
+	// @Cacheable(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.ROlE_MENU, key = "(#roleId)")
+	public List<MenuEntity> listByRoleId(Long roleId) {
+		List<MenuEntity> menuList = (List<MenuEntity>) (cacheChannel.get(
+				CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.ROlE_MENU, roleId.toString())).getValue();
+		if (CollUtil.isEmpty(menuList)) {
+			Set<Long> menuIds = roleMenuService.listMenuIdsByRoleId(roleId);
+			menuList = this.listByIds(menuIds);
+			cacheChannel.set(CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.ROlE_MENU, roleId.toString(), menuList);
+		}
+		return menuList;
+	}
+
+	/**
+	 * 获取角色对应的权限标识
+	 *
+	 * @param roleIds 多个角色Id
+	 * @return 超级管理员返回所以权限标识
+	 */
+	public Set<String> getRolePermission(Set<Long> roleIds) {
+		Set<String> perms = CollUtil.newHashSet();
+		roleIds.forEach(roleId -> {
+			List<MenuEntity> list;
+			if (SysConstant.SUPER_ADMIN_ROLE_ID.equals(roleId)) {
+				list = this.list();
+			} else {
+				list = this.listByRoleId(roleId);
+			}
+			perms.addAll(list.stream()
+					.map(MenuEntity::getPerms)
+					.filter(StrUtil::isNotEmpty)
+					.collect(Collectors.toSet()));
+		});
+
+		return perms;
+	}
 
 
     /*

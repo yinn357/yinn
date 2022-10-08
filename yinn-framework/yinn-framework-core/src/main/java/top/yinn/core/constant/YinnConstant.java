@@ -11,10 +11,6 @@ public interface YinnConstant {
 		 */
 		String HTTP_API_VERSION_V1 = "/api/v1";
 
-		/**
-		 * DUBBO API 版本 v1
-		 */
-		String DUBBO_VERSION_V1 = "1.0.0";
 	}
 
 	interface Message {
@@ -47,5 +43,12 @@ public interface YinnConstant {
 		String RETRIEVE = "retrieve";
 		String UPDATE = "update";
 		String DELETE = "delete";
+		String EXPORT = "export";
+		String IMPORT = "import";
+	}
+
+
+	interface User {
+		String ROlE_MENU = "role_menu";
 	}
 }
