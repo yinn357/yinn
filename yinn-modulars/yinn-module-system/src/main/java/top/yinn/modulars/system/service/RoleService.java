@@ -9,11 +9,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import top.yinn.core.base.PageParam;
 import top.yinn.core.base.PageResult;
+import top.yinn.core.constant.YinnConstant;
 import top.yinn.core.exception.code.ExceptionCode;
+import top.yinn.core.utils.StrPool;
 import top.yinn.database.service.impl.BaseServiceImpl;
+import top.yinn.j2cache.constant.CacheRegionConstant;
 import top.yinn.modulars.system.mapper.RoleMapper;
 import top.yinn.modulars.system.model.dto.RoleDTO;
 import top.yinn.modulars.system.model.dto.RoleInsertOrUpdateDTO;
@@ -94,6 +98,7 @@ public class RoleService extends BaseServiceImpl<RoleMapper, RoleEntity> {
 	 * @param userId 用户ID
 	 * @return 失败返回空列表
 	 */
+	@Cacheable(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.USER_ROLE, key = "(#userId)")
 	public List<RoleEntity> listByUserId(Long userId) {
 		Set<Long> roleIds = userRoleService.listRoleIdsByUserId(userId);
 		if (CollUtil.isEmpty(roleIds)) {

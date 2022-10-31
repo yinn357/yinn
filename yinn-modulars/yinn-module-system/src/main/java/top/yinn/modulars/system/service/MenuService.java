@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.oschina.j2cache.CacheChannel;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import top.yinn.core.base.PageParam;
 import top.yinn.core.base.PageResult;
@@ -102,8 +103,8 @@ public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 	 * @param roleId 角色ID
 	 * @return 失败返回空列表
 	 */
-	// 内部调用注解不生效
-	// @Cacheable(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.ROlE_MENU, key = "(#roleId)")
+	// 内部调用该注解不生效
+	@Cacheable(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.ROlE_MENU, key = "(#roleId)")
 	public List<MenuEntity> listByRoleId(Long roleId) {
 		List<MenuEntity> menuList = (List<MenuEntity>) (cacheChannel.get(
 				CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.ROlE_MENU, roleId.toString())).getValue();
@@ -168,7 +169,7 @@ public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 				.eq(ObjectUtil.isNotNull(dto.getIsFrame()), MenuEntity::getIsFrame, dto.getIsFrame())
 				// 是否缓存（1缓存 0不缓存）
 				.eq(ObjectUtil.isNotNull(dto.getIsCache()), MenuEntity::getIsCache, dto.getIsCache())
-				// 菜单类型（M目录 C菜单 F按钮）
+				// 菜单类型（D目录 M菜单 B按钮 E外链）
 				.like(StrUtil.isNotBlank(dto.getMenuType()), MenuEntity::getMenuType, StrUtil.cleanBlank(dto.getMenuType()))
 				// 菜单状态（1显示 0隐藏）
 				.eq(ObjectUtil.isNotNull(dto.getVisible()), MenuEntity::getVisible, dto.getVisible())

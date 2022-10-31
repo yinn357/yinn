@@ -57,7 +57,7 @@ public class MenuVO implements Serializable {
     @ApiModelProperty(value = "是否缓存（1缓存 0不缓存）")
     private Boolean isCache;
 
-    @ApiModelProperty(value = "菜单类型（M目录 C菜单 F按钮）")
+    @ApiModelProperty(value = "菜单类型（D目录 M菜单 B按钮 E外链）")
     private String menuType;
 
     @ApiModelProperty(value = "菜单状态（1显示 0隐藏）")

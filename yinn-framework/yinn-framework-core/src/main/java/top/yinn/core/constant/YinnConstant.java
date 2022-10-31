@@ -49,6 +49,7 @@ public interface YinnConstant {
 
 
 	interface User {
+		String USER_ROLE = "user_role";
 		String ROlE_MENU = "role_menu";
 	}
 }

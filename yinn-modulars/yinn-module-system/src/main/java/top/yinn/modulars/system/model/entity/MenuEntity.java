@@ -61,7 +61,7 @@ public class MenuEntity extends BaseEntity<Long> {
 	@TableField(value = "is_cache")
 	private Boolean isCache;
 
-	@ApiModelProperty(value = "菜单类型（M目录 C菜单 F按钮）")
+	@ApiModelProperty(value = "菜单类型（D目录 M菜单 B按钮 E外链）")
 	@TableField(value = "menu_type")
 	private String menuType;
 
