@@ -15,6 +15,7 @@ import top.yinn.database.id.IdsDTO;
 import top.yinn.modulars.system.constant.SysConstant;
 import top.yinn.modulars.system.model.dto.UserDTO;
 import top.yinn.modulars.system.model.dto.UserInsertOrUpdateDTO;
+import top.yinn.modulars.system.model.dto.UserRoleBindRelationDTO;
 import top.yinn.modulars.system.model.vo.UserVO;
 import top.yinn.modulars.system.service.UserService;
 
@@ -77,6 +78,15 @@ public class AdminUserController {
     @DeleteMapping
     public ApiResult<?> delete(@RequestBody @Valid IdsDTO<Long> dto) {
         userService.removeBatchByIds(dto.getIds());
+        return ApiResult.success();
+    }
+
+    @SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.RELEVANCY)
+    @ApiOperation(value = "用户绑定角色", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{userId}/roles")
+    public ApiResult<?> bindRoles(@PathVariable Long userId, @RequestBody UserRoleBindRelationDTO dto) {
+        dto.setUserId(userId);
+        userService.bindRoles(dto);
         return ApiResult.success();
     }
 

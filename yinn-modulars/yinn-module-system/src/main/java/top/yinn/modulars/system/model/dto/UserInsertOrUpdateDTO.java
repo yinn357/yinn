@@ -31,13 +31,13 @@ public class UserInsertOrUpdateDTO implements Serializable {
 	@ApiModelProperty(value = "主键ID", hidden = true, notes = "仅更新时使用")
 	private Long id;
 
-	@ApiModelProperty(value = "账号", required = true)
-	@NotBlank(message = "账号不能为空")
-	private String account;
+	// @ApiModelProperty(value = "账号", required = true)
+	// @NotBlank(message = "账号不能为空")
+	// private String account;
 
-	@ApiModelProperty(value = "密码", required = true)
-	@NotBlank(message = "密码不能为空")
-	private String password;
+	// @ApiModelProperty(value = "密码", required = true)
+	// @NotBlank(message = "密码不能为空")
+	// private String password;
 
 	@ApiModelProperty(value = "昵称", required = true)
 	@NotBlank(message = "昵称不能为空")

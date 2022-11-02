@@ -21,6 +21,7 @@ import top.yinn.j2cache.constant.CacheRegionConstant;
 import top.yinn.modulars.system.mapper.RoleMapper;
 import top.yinn.modulars.system.model.dto.RoleDTO;
 import top.yinn.modulars.system.model.dto.RoleInsertOrUpdateDTO;
+import top.yinn.modulars.system.model.dto.RoleMenuBindRelationDTO;
 import top.yinn.modulars.system.model.entity.RoleEntity;
 import top.yinn.modulars.system.model.vo.RoleVO;
 
@@ -40,6 +41,8 @@ public class RoleService extends BaseServiceImpl<RoleMapper, RoleEntity> {
 
 
 	private final UserRoleService userRoleService;
+
+	private final RoleMenuService roleMenuService;
 
 	/**
 	 * 后台-分页列表
@@ -111,6 +114,12 @@ public class RoleService extends BaseServiceImpl<RoleMapper, RoleEntity> {
 		);
 	}
 
+	/**
+	 * 后台管理-绑定角色与菜单关联关系
+	 */
+	public void bindMenus(RoleMenuBindRelationDTO dto) {
+		roleMenuService.cleanAndBind(dto.getRoleId(), dto.getMenuIds());
+	}
 
     /*
     ----------------------------------------------------------------

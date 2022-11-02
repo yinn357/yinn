@@ -15,6 +15,7 @@ import top.yinn.database.id.IdsDTO;
 import top.yinn.modulars.system.constant.SysConstant;
 import top.yinn.modulars.system.model.dto.RoleDTO;
 import top.yinn.modulars.system.model.dto.RoleInsertOrUpdateDTO;
+import top.yinn.modulars.system.model.dto.RoleMenuBindRelationDTO;
 import top.yinn.modulars.system.model.vo.RoleVO;
 import top.yinn.modulars.system.service.RoleService;
 
@@ -80,4 +81,12 @@ public class AdminRoleController {
 		return ApiResult.success();
 	}
 
+	@SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.RELEVANCY)
+	@ApiOperation(value = "角色绑定菜单", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/{id}/menus")
+	public ApiResult<?> bindMenus(@PathVariable Long id, @RequestBody RoleMenuBindRelationDTO dto) {
+		dto.setRoleId(id);
+		roleService.bindMenus(dto);
+		return ApiResult.success();
+	}
 }

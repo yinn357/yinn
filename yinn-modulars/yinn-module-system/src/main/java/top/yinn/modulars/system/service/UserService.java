@@ -17,6 +17,7 @@ import top.yinn.database.service.impl.BaseServiceImpl;
 import top.yinn.modulars.system.mapper.UserMapper;
 import top.yinn.modulars.system.model.dto.UserDTO;
 import top.yinn.modulars.system.model.dto.UserInsertOrUpdateDTO;
+import top.yinn.modulars.system.model.dto.UserRoleBindRelationDTO;
 import top.yinn.modulars.system.model.entity.UserEntity;
 import top.yinn.modulars.system.model.vo.UserVO;
 
@@ -33,6 +34,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class UserService extends BaseServiceImpl<UserMapper, UserEntity> {
 
+	private final UserRoleService userRoleService;
 
 	/**
 	 * 后台用户管理-分页列表
@@ -101,6 +103,12 @@ public class UserService extends BaseServiceImpl<UserMapper, UserEntity> {
 		return this.updateById(userEntity);
 	}
 
+	/**
+	 * 后台管理-绑定用户与角色关联关系
+	 */
+	public void bindRoles(UserRoleBindRelationDTO dto) {
+		userRoleService.cleanAndBind(dto.getUserId(), dto.getRoleIds());
+	}
 
     /*
     ----------------------------------------------------------------

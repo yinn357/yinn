@@ -43,6 +43,7 @@ public interface YinnConstant {
 		String RETRIEVE = "retrieve";
 		String UPDATE = "update";
 		String DELETE = "delete";
+		String RELEVANCY = "RELEVANCY";
 		String EXPORT = "export";
 		String IMPORT = "import";
 	}

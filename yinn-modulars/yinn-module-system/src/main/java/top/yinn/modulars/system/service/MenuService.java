@@ -2,6 +2,7 @@ package top.yinn.modulars.system.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -17,6 +18,7 @@ import top.yinn.core.base.PageResult;
 import top.yinn.core.constant.YinnConstant;
 import top.yinn.core.exception.code.ExceptionCode;
 import top.yinn.core.utils.StrPool;
+import top.yinn.core.utils.TreeBuildUtils;
 import top.yinn.database.service.impl.BaseServiceImpl;
 import top.yinn.j2cache.constant.CacheRegionConstant;
 import top.yinn.modulars.system.constant.SysConstant;
@@ -109,8 +111,12 @@ public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 		List<MenuEntity> menuList = (List<MenuEntity>) (cacheChannel.get(
 				CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.ROlE_MENU, roleId.toString())).getValue();
 		if (CollUtil.isEmpty(menuList)) {
-			Set<Long> menuIds = roleMenuService.listMenuIdsByRoleId(roleId);
-			menuList = this.listByIds(menuIds);
+			if (SysConstant.SUPER_ADMIN_ROLE_ID.equals(roleId)) {
+				menuList = this.list();
+			} else {
+				Set<Long> menuIds = roleMenuService.listMenuIdsByRoleId(roleId);
+				menuList = this.listByIds(menuIds);
+			}
 			cacheChannel.set(CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.ROlE_MENU, roleId.toString(), menuList);
 		}
 		return menuList;
@@ -125,12 +131,9 @@ public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 	public Set<String> getRolePermission(Set<Long> roleIds) {
 		Set<String> perms = CollUtil.newHashSet();
 		roleIds.forEach(roleId -> {
-			List<MenuEntity> list;
-			if (SysConstant.SUPER_ADMIN_ROLE_ID.equals(roleId)) {
-				list = this.list();
-			} else {
-				list = this.listByRoleId(roleId);
-			}
+			// 角色菜单列表
+			List<MenuEntity> list = this.listByRoleId(roleId);
+
 			perms.addAll(list.stream()
 					.map(MenuEntity::getPerms)
 					.filter(StrUtil::isNotEmpty)
@@ -140,6 +143,24 @@ public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 		return perms;
 	}
 
+	/**
+	 * 菜单列表封装为树形结构
+	 *
+	 * @return 树形结构数据
+	 */
+	public List<Tree<Long>> tree(List<MenuEntity> menuList) {
+		return TreeBuildUtils.build(menuList, (menu, tree) -> {
+			tree.setId(menu.getId());
+			tree.setParentId(menu.getParentId());
+			tree.setName(menu.getMenuName());
+			tree.setWeight(menu.getOrderNum());
+			tree.putExtra("icon", menu.getIcon());
+			tree.putExtra("menuType", menu.getMenuType());
+			tree.putExtra("path", menu.getPath());
+			tree.putExtra("isFrame", menu.getIsFrame());
+			tree.putExtra("component", menu.getComponent());
+		});
+	}
 
     /*
     ----------------------------------------------------------------

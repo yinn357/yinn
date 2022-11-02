@@ -1,6 +1,7 @@
 package top.yinn.modulars.system.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import cn.hutool.core.lang.tree.Tree;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import top.yinn.modulars.system.model.vo.MenuVO;
 import top.yinn.modulars.system.service.MenuService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 /**
@@ -79,5 +81,14 @@ public class AdminMenuController {
 		menuService.removeBatchByIds(dto.getIds());
 		return ApiResult.success();
 	}
+
+	@SaCheckPermission(value = PERMISSION_PREFIX + YinnConstant.Permission.RETRIEVE)
+	@ApiOperation(value = "树形数据", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/tree")
+	public ApiResult<List> getTreeList() {
+		List<Tree<Long>> treeList = menuService.tree(menuService.list());
+		return ApiResult.data(treeList);
+	}
+
 
 }
