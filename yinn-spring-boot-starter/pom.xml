@@ -20,6 +20,7 @@
         <module>yinn-logging-starter</module>
         <module>yinn-satoken-starter</module>
         <module>yinn-database-starter</module>
+        <module>yinn-redis-starter</module>
     </modules>
 
     <dependencyManagement>
