@@ -1,4 +1,4 @@
-package top.yinn.satoken.config;
+package top.yinn.satoken;
 
 import cn.dev33.satoken.jwt.StpLogicJwtForMixin;
 import cn.dev33.satoken.jwt.StpLogicJwtForSimple;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
  * @Author Yinn
  */
 
-public class SaTokenConfigure {
+public class SaTokenAutoConfigure {
 
 	/**
 	 * Sa-Token 整合 jwt (Simple 简单模式)
