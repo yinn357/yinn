@@ -26,7 +26,7 @@ public class SaTokenAutoConfigure {
 	 * Sa-Token 整合 jwt (Mixin 混入模式)
 	 */
 	@Bean
-	@ConditionalOnProperty(name = "yinn.sa-token.jwt", havingValue = "Mixin")
+	@ConditionalOnProperty(name = "yinn.sa-token.jwt", havingValue = "Mixin", matchIfMissing = true)
 	public StpLogic getStpLogicJwtForMixin() {
 		return new StpLogicJwtForMixin();
 	}
