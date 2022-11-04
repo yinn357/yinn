@@ -14,7 +14,7 @@ yinn:
   redis:
     ip: 127.0.0.1
     port: 6379
-    password:
+    password: 123
     database: 0
   swagger:
     enabled: true
@@ -45,3 +45,28 @@ spring:
     pathmatch:
       # Boot 2.6+ 默认的路由匹配策略，Swagger 暂不兼容，使用老策略
       matching-strategy: ant_path_matcher
+
+
+  # Redis 配置
+  redis:
+    # Redis 服务器地址
+    host: ${yinn.redis.ip}
+    # 连接端口号
+    port: ${yinn.redis.port}
+    # Redis 密码
+    password: ${yinn.redis.password}
+    # 数据库索引（0 - 15）
+    database: ${yinn.redis.database}
+    # 连接超时时间（毫秒）
+    timeout: 10000
+    # lettuce 参数
+    lettuce:
+      pool:
+        # 最大连接数(使用负值表示没有限制) 默认为 8
+        max-active: 10
+        # 最大阻塞等待时间(使用负值表示没有限制) 默认为 -1 ms
+        max-wait: -1
+        # 最大空闲连接 默认为 8
+        max-idle: 5
+        # 最小空闲连接 默认为 0
+        min-idle: 0

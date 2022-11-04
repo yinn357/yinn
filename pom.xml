@@ -148,7 +148,7 @@
         <qcloudsms.version>1.0.6</qcloudsms.version>
         <bce-java-sdk.version>0.10.21</bce-java-sdk.version>
 
-        <sa-token.version>1.31.0</sa-token.version>
+        <sa-token.version>1.32.0</sa-token.version>
 
         <transmittable-thread-local.version>2.12.1</transmittable-thread-local.version>
         <jackson.version>2.13.3</jackson.version>
@@ -495,6 +495,12 @@
             <dependency>
                 <groupId>top.yinn</groupId>
                 <artifactId>yinn-database-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.yinn</groupId>
+                <artifactId>yinn-redis-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

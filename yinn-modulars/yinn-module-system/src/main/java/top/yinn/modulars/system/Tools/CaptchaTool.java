@@ -4,9 +4,9 @@ import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.ShearCaptcha;
 import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
-import net.oschina.j2cache.CacheChannel;
 import org.springframework.stereotype.Component;
-import top.yinn.j2cache.constant.CacheRegionConstant;
+import top.yinn.redis.enums.CacheRegion;
+import top.yinn.redis.util.RedisUtil;
 
 /**
  * 验证码助手类；可将验证码答案缓存至 Redis
@@ -17,7 +17,7 @@ import top.yinn.j2cache.constant.CacheRegionConstant;
 @RequiredArgsConstructor
 public class CaptchaTool {
 
-	private final CacheChannel cacheChannel;
+	private final RedisUtil redisUtil;
 
 	private static final String CACHE_KEY_CAPTCHA_ANSWER = "uuid_%s" ;
 
@@ -33,7 +33,7 @@ public class CaptchaTool {
 		ShearCaptcha captcha = CaptchaUtil.createShearCaptcha(196, 50, 4, 4);
 
 		// 将验证码答案保存至 redis , 有效期15分钟
-		cacheChannel.set(CacheRegionConstant.CAPTCHA, String.format(CACHE_KEY_CAPTCHA_ANSWER, uuid), captcha);
+		redisUtil.set(String.format(CACHE_KEY_CAPTCHA_ANSWER, uuid), captcha, CacheRegion.CAPTCHA);
 
 		return captcha;
 	}
@@ -51,10 +51,10 @@ public class CaptchaTool {
 		}
 
 		String cacheKey = String.format(CACHE_KEY_CAPTCHA_ANSWER, uuid);
-		String answerInRedis = (String) cacheChannel.get(CacheRegionConstant.CAPTCHA, cacheKey).getValue();
+		String answerInRedis = redisUtil.get(cacheKey, CacheRegion.CAPTCHA);
 		boolean equals = StrUtil.equalsIgnoreCase(answerInRedis, captchaAnswer);
 		if (equals && removeWhenEquals) {
-			cacheChannel.evict(CacheRegionConstant.CAPTCHA, cacheKey);
+			redisUtil.del(CacheRegion.CAPTCHA, cacheKey);
 		}
 
 		return equals;

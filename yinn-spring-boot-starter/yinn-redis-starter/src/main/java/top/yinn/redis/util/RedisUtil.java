@@ -9,10 +9,7 @@ import org.springframework.util.CollectionUtils;
 import top.yinn.core.utils.StrPool;
 import top.yinn.redis.enums.CacheRegion;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -97,6 +94,32 @@ public final class RedisUtil {
 		}
 	}
 
+	/**
+	 * 删除缓存
+	 *
+	 * @param cacheRegion 区域-过期时间 {@link CacheRegion}
+	 * @param key         可以传一个值 或多个
+	 */
+	public void del(CacheRegion cacheRegion, String... key) {
+		if (key != null && key.length > 0) {
+			String[] keyList = Arrays.stream(key)
+					.map(k -> cacheRegion.getLabel() + StrPool.COLON + k)
+					.toArray(String[]::new);
+			this.del(keyList);
+		}
+	}
+
+	/**
+	 * 删除缓存
+	 *
+	 * @param cacheRegion 区域-过期时间 {@link CacheRegion}
+	 * @param key         键
+	 * @param id          Id
+	 */
+	public <E> void del(CacheRegion cacheRegion, String key, E id) {
+		this.del(cacheRegion.getLabel() + StrPool.COLON + key + StrPool.COLON + id);
+	}
+
 	// ============================String=============================
 
 	/**
@@ -111,6 +134,29 @@ public final class RedisUtil {
 		}
 		ValueOperations<String, T> operation = redisTemplate.opsForValue();
 		return operation.get(key);
+	}
+
+	/**
+	 * 普通缓存获取
+	 *
+	 * @param key         键
+	 * @param cacheRegion 区域-过期时间 {@link CacheRegion}
+	 * @return 值
+	 */
+	public <T> T get(String key, CacheRegion cacheRegion) {
+		return this.get(cacheRegion.getLabel() + StrPool.COLON + key);
+	}
+
+	/**
+	 * 普通缓存获取
+	 *
+	 * @param key         键
+	 * @param id          Id
+	 * @param cacheRegion 区域-过期时间 {@link CacheRegion}
+	 * @return 值
+	 */
+	public <T, E> T get(String key, E id, CacheRegion cacheRegion) {
+		return this.get(key + StrPool.COLON + id, cacheRegion);
 	}
 
 	/**
@@ -157,11 +203,22 @@ public final class RedisUtil {
 	 *
 	 * @param key         键
 	 * @param value       值
-	 * @param cacheRegion 区域过期时间 {@link CacheRegion}
+	 * @param cacheRegion 区域-过期时间 {@link CacheRegion}
 	 */
 	public <T> boolean set(String key, T value, CacheRegion cacheRegion) {
-
 		return this.set(cacheRegion.getLabel() + StrPool.COLON + key, value, cacheRegion.getValue() * 60L);
+	}
+
+	/**
+	 * 普通缓存放入并设置区域和时间
+	 *
+	 * @param key         键
+	 * @param id          Id
+	 * @param value       值
+	 * @param cacheRegion 区域-过期时间 {@link CacheRegion}
+	 */
+	public <T, E> boolean set(String key, E id, T value, CacheRegion cacheRegion) {
+		return this.set(key + StrPool.COLON + id, value, cacheRegion);
 	}
 
 	/**

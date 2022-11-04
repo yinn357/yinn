@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
-import top.yinn.core.constant.YinnConstant;
 import top.yinn.core.utils.StrPool;
 import top.yinn.database.service.impl.BaseServiceImpl;
-import top.yinn.j2cache.constant.CacheRegionConstant;
+import top.yinn.modulars.system.constant.CacheKeyConstant;
 import top.yinn.modulars.system.enums.UserErrorEnum;
 import top.yinn.modulars.system.mapper.UserRoleMapper;
 import top.yinn.modulars.system.model.entity.UserRoleEntity;
+import top.yinn.redis.constant.CacheRegionConstant;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,7 +54,7 @@ public class UserRoleService extends BaseServiceImpl<UserRoleMapper, UserRoleEnt
 	 * @param userId  角色ID
 	 * @param roleIds 新菜单ID集合
 	 */
-	@CacheEvict(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.USER_ROLE, key = "(#userId)")
+	@CacheEvict(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + CacheKeyConstant.Auth.USER_ROLE, key = "(#userId)")
 	public void cleanAndBind(Long userId, Collection<Long> roleIds) {
 		LambdaQueryWrapper<UserRoleEntity> roleIdsQuery =
 				new LambdaQueryWrapper<UserRoleEntity>()

@@ -47,10 +47,5 @@ public interface YinnConstant {
 		String EXPORT = "export";
 		String IMPORT = "import";
 	}
-
-
-	interface User {
-		String USER_ROLE = "user_role";
-		String ROlE_MENU = "role_menu";
-	}
+	
 }

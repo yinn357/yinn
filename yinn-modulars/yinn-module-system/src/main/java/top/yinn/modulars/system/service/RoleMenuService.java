@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
-import top.yinn.core.constant.YinnConstant;
 import top.yinn.core.exception.code.ExceptionCode;
 import top.yinn.core.utils.StrPool;
 import top.yinn.database.service.impl.BaseServiceImpl;
-import top.yinn.j2cache.constant.CacheRegionConstant;
+import top.yinn.modulars.system.constant.CacheKeyConstant;
 import top.yinn.modulars.system.mapper.RoleMenuMapper;
 import top.yinn.modulars.system.model.entity.RoleMenuEntity;
+import top.yinn.redis.constant.CacheRegionConstant;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,7 +54,7 @@ public class RoleMenuService extends BaseServiceImpl<RoleMenuMapper, RoleMenuEnt
 	 * @param roleId  角色ID
 	 * @param menuIds 新菜单ID集合
 	 */
-	@CacheEvict(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.ROlE_MENU, key = "(#roleId)")
+	@CacheEvict(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + CacheKeyConstant.Auth.ROlE_MENU, key = "(#roleId)")
 	public void cleanAndBind(Long roleId, Collection<Long> menuIds) {
 		LambdaQueryWrapper<RoleMenuEntity> menuIdsQuery =
 				new LambdaQueryWrapper<RoleMenuEntity>()

@@ -6,7 +6,7 @@ package top.yinn.redis.constant;
  * @Author Yinn
  */
 
-public interface RegionConstant {
+public interface CacheRegionConstant {
 	/**
 	 * 默认 2H
 	 */

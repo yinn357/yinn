@@ -43,7 +43,7 @@
 
         <dependency>
             <groupId>top.yinn</groupId>
-            <artifactId>yinn-j2cache-starter</artifactId>
+            <artifactId>yinn-redis-starter</artifactId>
         </dependency>
 
         <dependency>

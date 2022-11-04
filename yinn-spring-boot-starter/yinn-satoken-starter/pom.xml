@@ -34,6 +34,16 @@
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-alone-redis</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

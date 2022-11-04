@@ -10,23 +10,24 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.oschina.j2cache.CacheChannel;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import top.yinn.core.base.PageParam;
 import top.yinn.core.base.PageResult;
-import top.yinn.core.constant.YinnConstant;
 import top.yinn.core.exception.code.ExceptionCode;
 import top.yinn.core.utils.StrPool;
 import top.yinn.core.utils.TreeBuildUtils;
 import top.yinn.database.service.impl.BaseServiceImpl;
-import top.yinn.j2cache.constant.CacheRegionConstant;
+import top.yinn.modulars.system.constant.CacheKeyConstant;
 import top.yinn.modulars.system.constant.SysConstant;
 import top.yinn.modulars.system.mapper.MenuMapper;
 import top.yinn.modulars.system.model.dto.MenuDTO;
 import top.yinn.modulars.system.model.dto.MenuInsertOrUpdateDTO;
 import top.yinn.modulars.system.model.entity.MenuEntity;
 import top.yinn.modulars.system.model.vo.MenuVO;
+import top.yinn.redis.constant.CacheRegionConstant;
+import top.yinn.redis.enums.CacheRegion;
+import top.yinn.redis.util.RedisUtil;
 
 import java.util.List;
 import java.util.Set;
@@ -46,7 +47,7 @@ public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 
 	private final RoleMenuService roleMenuService;
 
-	private final CacheChannel cacheChannel;
+	private final RedisUtil redisUtil;
 
 	/**
 	 * 后台-分页列表
@@ -106,10 +107,9 @@ public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 	 * @return 失败返回空列表
 	 */
 	// 内部调用该注解不生效
-	@Cacheable(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.ROlE_MENU, key = "(#roleId)")
+	@Cacheable(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + CacheKeyConstant.Auth.ROlE_MENU, key = "(#roleId)")
 	public List<MenuEntity> listByRoleId(Long roleId) {
-		List<MenuEntity> menuList = (List<MenuEntity>) (cacheChannel.get(
-				CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.ROlE_MENU, roleId.toString())).getValue();
+		List<MenuEntity> menuList = redisUtil.get(CacheKeyConstant.Auth.ROlE_MENU, roleId, CacheRegion.USER_RESOURCE);
 		if (CollUtil.isEmpty(menuList)) {
 			if (SysConstant.SUPER_ADMIN_ROLE_ID.equals(roleId)) {
 				menuList = this.list();
@@ -117,7 +117,7 @@ public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 				Set<Long> menuIds = roleMenuService.listMenuIdsByRoleId(roleId);
 				menuList = this.listByIds(menuIds);
 			}
-			cacheChannel.set(CacheRegionConstant.USER_RESOURCE + StrPool.COLON + YinnConstant.User.ROlE_MENU, roleId.toString(), menuList);
+			redisUtil.set(CacheKeyConstant.Auth.ROlE_MENU, roleId, menuList, CacheRegion.USER_RESOURCE);
 		}
 		return menuList;
 	}
@@ -141,6 +141,12 @@ public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 		});
 
 		return perms;
+	}
+
+	@Override
+	@Cacheable(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + CacheKeyConstant.Auth.ROlE_MENU, key = CacheKeyConstant.ALL)
+	public List<MenuEntity> list() {
+		return super.list();
 	}
 
 	/**
