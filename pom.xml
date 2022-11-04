@@ -27,10 +27,8 @@
     </licenses>
 
     <modules>
-        <module>yinn-framework</module>
-        <module>yinn-spring-boot-starter</module>
+        <module>yinn-starters</module>
         <module>yinn-modulars</module>
-        <module>yinn-start</module>
     </modules>
 
 
@@ -452,13 +450,7 @@
 
             <dependency>
                 <groupId>top.yinn</groupId>
-                <artifactId>yinn-framework-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>top.yinn</groupId>
-                <artifactId>yinn-framework-common</artifactId>
+                <artifactId>yinn-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
