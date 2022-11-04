@@ -144,7 +144,7 @@ public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 	}
 
 	@Override
-	@Cacheable(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + CacheKeyConstant.Auth.ROlE_MENU, key = CacheKeyConstant.ALL)
+	@Cacheable(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + CacheKeyConstant.Auth.MENU, key = CacheKeyConstant.METHOD_NAME)
 	public List<MenuEntity> list() {
 		return super.list();
 	}

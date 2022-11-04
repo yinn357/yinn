@@ -9,7 +9,7 @@ import top.yinn.core.utils.StrPool;
  */
 public interface CacheKeyConstant {
 
-	String ALL = "all";
+	String METHOD_NAME = "#root.methodName";
 
 	/**
 	 * 登录/授权/认证相关
