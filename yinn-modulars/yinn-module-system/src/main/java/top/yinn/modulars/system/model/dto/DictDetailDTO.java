@@ -47,7 +47,7 @@ public class DictDetailDTO implements Serializable {
 	private String dictValue;
 
 	@ApiModelProperty(value = "是否内置 0否  1是(关键词)")
-	private String izLock;
+	private Boolean izLock;
 
 	@ApiModelProperty(value = "排序")
 	private Integer sortNo;

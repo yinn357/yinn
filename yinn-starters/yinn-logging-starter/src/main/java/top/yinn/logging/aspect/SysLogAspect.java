@@ -21,6 +21,7 @@ import top.yinn.core.context.UserContextHolder;
 import top.yinn.core.exception.code.ExceptionCode;
 import top.yinn.core.model.ApiResult;
 import top.yinn.logging.annotation.SysLog;
+import top.yinn.logging.constant.OptLogConstant;
 import top.yinn.logging.entity.OptLogDTO;
 import top.yinn.logging.event.SysLogEvent;
 import top.yinn.logging.util.LogUtil;
@@ -146,9 +147,9 @@ public class SysLogAspect {
             }
             OptLogDTO sysLog = getOptLogDTO();
             if (result.getCode() == ExceptionCode.SUCCESS.getValue()) {
-                sysLog.setType("OPT");
+                sysLog.setType(OptLogConstant.Type.OPERATION);
             } else {
-                sysLog.setType("EX");
+                sysLog.setType(OptLogConstant.Type.EXCEPTION);
                 sysLog.setExDetail(result.getMsg());
             }
             sysLog.setResult(getText(JSONObject.toJSONString(result)));
@@ -167,7 +168,7 @@ public class SysLogAspect {
     public void doAfterThrowable(Throwable e) {
         tryCatch((aaa) -> {
             OptLogDTO sysLog = getOptLogDTO();
-            sysLog.setType("EX");
+            sysLog.setType(OptLogConstant.Type.EXCEPTION);
 
             // 异常对象
             sysLog.setExDetail(LogUtil.getStackTrace(e));
@@ -195,7 +196,7 @@ public class SysLogAspect {
         sysLog.setFinishTime(LocalDateTime.now());
         sysLog.setConsumingTime(sysLog.getStartTime().until(sysLog.getFinishTime(), ChronoUnit.MILLIS));
         // 是否需要发布事件操作日志的保存
-        if (!BooleanUtil.isTrue(sysLog.getIgnoreEvent())) {
+        if (!BooleanUtil.isTrue(sysLog.getIgnoreEvent()) || OptLogConstant.Type.EXCEPTION.equals(sysLog.getType())) {
             applicationContext.publishEvent(new SysLogEvent(sysLog));
         }
         THREAD_LOCAL.remove();

@@ -8,16 +8,25 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import top.yinn.core.exception.code.ExceptionCode;
 import top.yinn.core.model.PageParam;
 import top.yinn.core.model.PageResult;
+import top.yinn.core.utils.StrPool;
 import top.yinn.database.service.impl.BaseServiceImpl;
+import top.yinn.modulars.system.constant.CacheKeyConstant;
 import top.yinn.modulars.system.mapper.DictDetailMapper;
 import top.yinn.modulars.system.model.dto.DictDetailDTO;
 import top.yinn.modulars.system.model.dto.DictDetailInsertOrUpdateDTO;
 import top.yinn.modulars.system.model.entity.DictDetailEntity;
 import top.yinn.modulars.system.model.vo.DictDetailVO;
+import top.yinn.redis.constant.CacheRegionConstant;
+
+import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -25,6 +34,7 @@ import top.yinn.modulars.system.model.vo.DictDetailVO;
  *
  * @author Yinn
  */
+@CacheConfig(cacheNames = CacheRegionConstant.DICT + StrPool.COLON + CacheKeyConstant.Dict.DICT)
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -74,6 +84,7 @@ public class DictDetailService extends BaseServiceImpl<DictDetailMapper, DictDet
 	 * @param dto
 	 * @return 用户Id
 	 */
+	@CacheEvict(key = "(#dto.typeCode)")
 	public Long saveOrUpdate(DictDetailInsertOrUpdateDTO dto) {
 		DictDetailEntity entity = BeanUtil.toBean(dto, DictDetailEntity.class);
 
@@ -82,6 +93,24 @@ public class DictDetailService extends BaseServiceImpl<DictDetailMapper, DictDet
 		return entity.getId();
 	}
 
+	@Override
+	public boolean removeByIds(Collection<?> list) {
+		return this.remove(new LambdaQueryWrapper<DictDetailEntity>()
+				.eq(DictDetailEntity::getId, list)
+		);
+	}
+
+	/**
+	 * 根据字典类型 code 查询字典详细
+	 *
+	 * @param typeCode 字典类型
+	 * @return list
+	 */
+	@Cacheable(key = "(#typeCode)")
+	public List<DictDetailVO> listByTypeCode(String typeCode) {
+		List<DictDetailEntity> list = this.list(DictDetailEntity::getTypeCode, typeCode);
+		return BeanUtil.copyToList(list, DictDetailVO.class);
+	}
 
 
     /*
@@ -107,7 +136,7 @@ public class DictDetailService extends BaseServiceImpl<DictDetailMapper, DictDet
 				// 字典值
 				.like(StrUtil.isNotBlank(dto.getDictValue()), DictDetailEntity::getDictValue, StrUtil.cleanBlank(dto.getDictValue()))
 				// 是否内置 0否  1是
-				.like(StrUtil.isNotBlank(dto.getIzLock()), DictDetailEntity::getIzLock, StrUtil.cleanBlank(dto.getIzLock()))
+				.eq(ObjectUtil.isNotNull(dto.getIzLock()), DictDetailEntity::getIzLock, dto.getIzLock())
 				// 排序
 				.eq(ObjectUtil.isNotNull(dto.getSortNo()), DictDetailEntity::getSortNo, dto.getSortNo())
 				// 备注

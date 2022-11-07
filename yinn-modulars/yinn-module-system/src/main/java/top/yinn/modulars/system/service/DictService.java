@@ -101,7 +101,7 @@ public class DictService extends BaseServiceImpl<DictMapper, DictEntity> {
 				// 字典名称
 				.like(StrUtil.isNotBlank(dto.getTypeName()), DictEntity::getTypeName, StrUtil.cleanBlank(dto.getTypeName()))
 				// 是否内置 0否  1是
-				.like(StrUtil.isNotBlank(dto.getIzLock()), DictEntity::getIzLock, StrUtil.cleanBlank(dto.getIzLock()))
+				.eq(ObjectUtil.isNotNull(dto.getIzLock()), DictEntity::getIzLock, dto.getIzLock())
 				// 备注
 				.like(StrUtil.isNotBlank(dto.getRemark()), DictEntity::getRemark, StrUtil.cleanBlank(dto.getRemark()))
 				// 时间区间

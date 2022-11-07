@@ -10,6 +10,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import top.yinn.core.exception.code.ExceptionCode;
@@ -29,6 +31,7 @@ import top.yinn.redis.constant.CacheRegionConstant;
 import top.yinn.redis.enums.CacheRegion;
 import top.yinn.redis.util.RedisUtil;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -39,6 +42,7 @@ import java.util.stream.Collectors;
  *
  * @author Yinn
  */
+@CacheConfig(cacheNames = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + CacheKeyConstant.Auth.MENU)
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -92,12 +96,22 @@ public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 	 * @param dto
 	 * @return 用户Id
 	 */
+	@CacheEvict(key = CacheKeyConstant.LIST)
 	public Long saveOrUpdate(MenuInsertOrUpdateDTO dto) {
 		MenuEntity entity = BeanUtil.toBean(dto, MenuEntity.class);
 
 		this.saveOrUpdate(entity);
 
 		return entity.getId();
+	}
+
+	/**
+	 * 按Id批量删除
+	 */
+	@Override
+	@CacheEvict(key = CacheKeyConstant.LIST)
+	public boolean removeBatchByIds(Collection<?> list) {
+		return super.removeBatchByIds(list);
 	}
 
 	/**
@@ -144,7 +158,7 @@ public class MenuService extends BaseServiceImpl<MenuMapper, MenuEntity> {
 	}
 
 	@Override
-	@Cacheable(value = CacheRegionConstant.USER_RESOURCE + StrPool.COLON + CacheKeyConstant.Auth.MENU, key = CacheKeyConstant.METHOD_NAME)
+	@Cacheable(key = CacheKeyConstant.LIST)
 	public List<MenuEntity> list() {
 		return super.list();
 	}

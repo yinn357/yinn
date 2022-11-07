@@ -40,7 +40,7 @@ public class DictVO implements Serializable {
 	private String typeName;
 
 	@ApiModelProperty(value = "是否内置 0否  1是")
-	private String izLock;
+	private Boolean izLock;
 
 	@ApiModelProperty(value = "备注")
 	private String remark;

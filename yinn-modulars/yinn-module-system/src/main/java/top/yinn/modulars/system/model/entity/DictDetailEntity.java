@@ -51,7 +51,7 @@ public class DictDetailEntity extends BaseEntity<Long> {
 
 	@ApiModelProperty(value = "`是否内置 0否  1是`")
 	@TableField(value = "iz_lock")
-	private String izLock;
+	private Boolean izLock;
 
 	@ApiModelProperty(value = "`排序`")
 	@TableField(value = "sort_no")

@@ -52,7 +52,7 @@ public class DictDetailInsertOrUpdateDTO implements Serializable {
 
 	@ApiModelProperty(value = "是否内置 0否  1是", required = true)
 	@NotBlank(message = "是否内置 0否  1是不能为空")
-	private String izLock;
+	private Boolean izLock;
 
 	@ApiModelProperty(value = "排序", required = true)
 	@NotNull(message = "排序不能为空")
