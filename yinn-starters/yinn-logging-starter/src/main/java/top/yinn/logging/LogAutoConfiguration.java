@@ -17,6 +17,8 @@ import top.yinn.logging.aspect.SysLogAspect;
  * 1，存在web环境
  * 2，配置文件中yinn.log.enabled=true
  * 3，配置文件中不存在：yinn.log.enabled 值
+ *
+ * @author Yinn
  */
 @EnableAsync
 @Configuration

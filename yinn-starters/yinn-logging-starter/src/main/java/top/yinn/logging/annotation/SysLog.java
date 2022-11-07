@@ -4,6 +4,10 @@ import java.lang.annotation.*;
 
 /**
  * 操作日志注解
+ * 只需在 @GetMapping 的接口上加
+ * 描述会取 @ApiOperation.value
+ *
+ * @author Yinn
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -15,7 +19,7 @@ public @interface SysLog {
 	 *
 	 * @return {String}
 	 */
-	String value();
+	String value() default "" ;
 
 	/**
 	 * 记录执行参数

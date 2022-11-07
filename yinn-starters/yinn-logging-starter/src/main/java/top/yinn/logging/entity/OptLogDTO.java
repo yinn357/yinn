@@ -105,5 +105,9 @@ public class OptLogDTO {
 
     private Long createUser;
 
+    /**
+     * 忽略发布事件
+     */
+    private Boolean ignoreEvent;
 
 }

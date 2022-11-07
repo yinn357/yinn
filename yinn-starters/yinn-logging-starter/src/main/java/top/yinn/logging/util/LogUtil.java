@@ -41,7 +41,39 @@ public class LogUtil {
 			}
 			return description;
 		} catch (Exception e) {
-			return "";
+			return "" ;
+		}
+	}
+
+	/**
+	 * 获取操作方法对象
+	 *
+	 * @param point
+	 * @return
+	 */
+	public static Method getControllerMethod(JoinPoint point) {
+		try {
+			// 获取连接点目标类名
+			String targetName = point.getTarget().getClass().getName();
+			// 获取连接点签名的方法名
+			String methodName = point.getSignature().getName();
+			//获取连接点参数
+			Object[] args = point.getArgs();
+			//根据连接点类的名字获取指定类
+			Class targetClass = Class.forName(targetName);
+			//获取类里面的方法
+			Method[] methods = targetClass.getMethods();
+			for (Method method : methods) {
+				if (method.getName().equals(methodName)) {
+					Class[] clazzs = method.getParameterTypes();
+					if (clazzs.length == args.length) {
+						return method;
+					}
+				}
+			}
+			return null;
+		} catch (Exception e) {
+			return null;
 		}
 	}
 
