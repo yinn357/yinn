@@ -1,0 +1,13 @@
+yinn:
+  mysql:
+    ip: 172.17.0.2
+    port: 3306
+    driverClassName: com.mysql.cj.jdbc.Driver
+    database: yinn-db
+    username: root
+    password: yinn357
+  redis:
+    ip: 172.17.0.3
+    port: 6379
+    password: yinn357
+    database: 0

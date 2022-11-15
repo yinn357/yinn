@@ -158,9 +158,10 @@
 
         <dockerfile-maven-plugin.version>1.4.12</dockerfile-maven-plugin.version>
         <!--私有镜像仓库-->
-        <docker.registry>127.0.0.1:5000</docker.registry>
+        <!--<docker.registry>registry.cn-hangzhou.aliyuncs.com</docker.registry>-->
+        <docker.registry>yinn-docker.pkg.coding.net</docker.registry>
         <!--镜像前缀-->
-        <docker.image.prefix>yinn</docker.image.prefix>
+        <docker.image.prefix>yinn/boot</docker.image.prefix>
 
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

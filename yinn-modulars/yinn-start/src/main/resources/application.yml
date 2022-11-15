@@ -2,20 +2,6 @@ server:
   port: 8090
 
 yinn:
-  mysql:
-    ip: yinn
-    port: 3306
-    driverClassName: com.mysql.cj.jdbc.Driver
-    database: yinn-db
-    username: root
-    password: yinn357
-  database:
-    isBlockAttack: false  # 是否启用 攻击 SQL 阻断解析器
-  redis:
-    ip: 127.0.0.1
-    port: 6379
-    password: 123
-    database: 0
   swagger:
     enabled: true
     docket:
@@ -33,9 +19,6 @@ yinn:
     # 详细查看sa-token官方文档
     jwt: Mixin
 
-j2cache:
-  l2-cache-open: true #开启(redis)二级缓存
-
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -45,28 +28,5 @@ spring:
     pathmatch:
       # Boot 2.6+ 默认的路由匹配策略，Swagger 暂不兼容，使用老策略
       matching-strategy: ant_path_matcher
-
-
-  # Redis 配置
-  redis:
-    # Redis 服务器地址
-    host: ${yinn.redis.ip}
-    # 连接端口号
-    port: ${yinn.redis.port}
-    # Redis 密码
-    password: ${yinn.redis.password}
-    # 数据库索引（0 - 15）
-    database: ${yinn.redis.database}
-    # 连接超时时间（毫秒）
-    timeout: 10000
-    # lettuce 参数
-    lettuce:
-      pool:
-        # 最大连接数(使用负值表示没有限制) 默认为 8
-        max-active: 10
-        # 最大阻塞等待时间(使用负值表示没有限制) 默认为 -1 ms
-        max-wait: -1
-        # 最大空闲连接 默认为 8
-        max-idle: 5
-        # 最小空闲连接 默认为 0
-        min-idle: 0
+  profiles:
+    active: @pom.profile.name@
