@@ -25,43 +25,44 @@ import java.util.stream.Collectors;
 
 /**
  * swagger 包扫描配置
- *
  */
 @Import({
-        Swagger2Configuration.class
+		Swagger2Configuration.class
 })
 @EnableConfigurationProperties(SwaggerProperties.class)
 public class SwaggerAutoConfiguration implements BeanFactoryAware {
-    private static final String AUTH_KEY = "token";
-    @Autowired
-    SwaggerProperties swaggerProperties;
 
-    private BeanFactory beanFactory;
+	private static final String AUTH_KEY = "token";
 
-    @Bean
-    @ConditionalOnMissingBean
-    @ConditionalOnProperty(name = "yinn.swagger.enabled", havingValue = "true", matchIfMissing = true)
-    public List<Docket> createRestApi() {
-        ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) beanFactory;
-        List<Docket> docketList = new LinkedList<>();
+	@Autowired
+	SwaggerProperties swaggerProperties;
 
-        // 没有分组
-        if (swaggerProperties.getDocket().isEmpty()) {
-            Docket docket = createDocket(swaggerProperties);
-            configurableBeanFactory.registerSingleton(swaggerProperties.getTitle(), docket);
-            docketList.add(docket);
-            return docketList;
-        }
+	private BeanFactory beanFactory;
 
-        // 分组创建
-        for (String groupName : swaggerProperties.getDocket().keySet()) {
-            SwaggerProperties.DocketInfo docketInfo = swaggerProperties.getDocket().get(groupName);
+	@Bean
+	@ConditionalOnMissingBean
+	@ConditionalOnProperty(name = "yinn.swagger.enabled", havingValue = "true", matchIfMissing = true)
+	public List<Docket> createRestApi() {
+		ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) beanFactory;
+		List<Docket> docketList = new LinkedList<>();
 
-            ApiInfo apiInfo = new ApiInfoBuilder()
-                    .title(docketInfo.getTitle().isEmpty() ? swaggerProperties.getTitle() : docketInfo.getTitle())
-                    .description(docketInfo.getDescription().isEmpty() ? swaggerProperties.getDescription() : docketInfo.getDescription())
-                    .version(docketInfo.getVersion().isEmpty() ? swaggerProperties.getVersion() : docketInfo.getVersion())
-                    .license(docketInfo.getLicense().isEmpty() ? swaggerProperties.getLicense() : docketInfo.getLicense())
+		// 没有分组
+		if (swaggerProperties.getDocket().isEmpty()) {
+			Docket docket = createDocket(swaggerProperties);
+			configurableBeanFactory.registerSingleton(swaggerProperties.getTitle(), docket);
+			docketList.add(docket);
+			return docketList;
+		}
+
+		// 分组创建
+		for (String groupName : swaggerProperties.getDocket().keySet()) {
+			SwaggerProperties.DocketInfo docketInfo = swaggerProperties.getDocket().get(groupName);
+
+			ApiInfo apiInfo = new ApiInfoBuilder()
+					.title(docketInfo.getTitle().isEmpty() ? swaggerProperties.getTitle() : docketInfo.getTitle())
+					.description(docketInfo.getDescription().isEmpty() ? swaggerProperties.getDescription() : docketInfo.getDescription())
+					.version(docketInfo.getVersion().isEmpty() ? swaggerProperties.getVersion() : docketInfo.getVersion())
+					.license(docketInfo.getLicense().isEmpty() ? swaggerProperties.getLicense() : docketInfo.getLicense())
                     .licenseUrl(docketInfo.getLicenseUrl().isEmpty() ? swaggerProperties.getLicenseUrl() : docketInfo.getLicenseUrl())
                     .contact(
                             new Contact(
@@ -210,26 +211,26 @@ public class SwaggerAutoConfiguration implements BeanFactoryAware {
     }
 
     private List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = authorizationScope;
-        List<SecurityReference> references = new ArrayList<>(1);
-        references.add(new SecurityReference(AUTH_KEY, authorizationScopes));
-        return references;
+	    AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+	    AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+	    authorizationScopes[0] = authorizationScope;
+	    List<SecurityReference> references = new ArrayList<>(1);
+	    references.add(new SecurityReference(swaggerProperties.getAuthKey(), authorizationScopes));
+	    return references;
     }
 
     private List<ApiKey> securitySchemes() {
-        List<ApiKey> apiKeys = new ArrayList<>(1);
-        ApiKey apiKey = new ApiKey(AUTH_KEY, AUTH_KEY, "header");
-        apiKeys.add(apiKey);
-        return apiKeys;
+	    List<ApiKey> apiKeys = new ArrayList<>(1);
+	    ApiKey apiKey = new ApiKey(swaggerProperties.getAuthKey(), swaggerProperties.getAuthKey(), "header");
+	    apiKeys.add(apiKey);
+	    return apiKeys;
     }
 
-    private List<Parameter> buildGlobalOperationParametersFromSwaggerProperties(
-            List<SwaggerProperties.GlobalOperationParameter> globalOperationParameters) {
-        List<Parameter> parameters = Lists.newArrayList();
+	private List<Parameter> buildGlobalOperationParametersFromSwaggerProperties(
+			List<SwaggerProperties.GlobalOperationParameter> globalOperationParameters) {
+		List<Parameter> parameters = Lists.newArrayList();
 
-        if (Objects.isNull(globalOperationParameters)) {
+		if (Objects.isNull(globalOperationParameters)) {
             /*parameters.add(new ParameterBuilder()
                     .name(AUTH_KEY)
                     .description("token令牌")

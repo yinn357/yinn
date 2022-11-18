@@ -21,6 +21,12 @@ public class SwaggerProperties {
 	 **/
 	private Boolean enabled = true;
 
+
+	/**
+	 * token名称
+	 */
+	private String authKey = "token";
+
 	/**
 	 * 是否生产环境
 	 */

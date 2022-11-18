@@ -4,6 +4,7 @@ server:
 yinn:
   swagger:
     enabled: true
+    auth-key: Yinn-Token
     docket:
       base:
         title: Yinn接口文档
@@ -18,6 +19,7 @@ yinn:
     # jwt 集成模式  Simple(简单模式)、Mixin(混入模式)、Stateless(无状态模式)
     # 详细查看sa-token官方文档
     jwt: Mixin
+    token-name: ${yinn.swagger.auth-key}
 
 mybatis-plus:
   configuration:
