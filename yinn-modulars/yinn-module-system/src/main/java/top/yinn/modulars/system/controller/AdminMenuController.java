@@ -1,5 +1,6 @@
 package top.yinn.modulars.system.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.lang.tree.Tree;
 import io.swagger.annotations.Api;
@@ -88,6 +89,13 @@ public class AdminMenuController {
 	public ApiResult<List> getTreeList() {
 		List<Tree<Long>> treeList = menuService.tree(menuService.list());
 		return ApiResult.data(treeList);
+	}
+
+	@SaCheckLogin
+	@ApiOperation(value = "用户菜单树", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/user")
+	public ApiResult<List> getTreeByUser() {
+		return ApiResult.data(menuService.userMenuTree());
 	}
 
 

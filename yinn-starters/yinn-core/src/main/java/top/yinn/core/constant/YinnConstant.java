@@ -9,7 +9,7 @@ public interface YinnConstant {
 		/**
 		 * HTTP API 版本 v1
 		 */
-		String HTTP_API_VERSION_V1 = "/api/v1";
+		String HTTP_API_VERSION_V1 = "/v1";
 
 	}
 

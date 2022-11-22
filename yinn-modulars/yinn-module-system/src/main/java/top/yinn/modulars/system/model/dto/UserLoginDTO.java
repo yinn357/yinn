@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -33,8 +32,7 @@ public class UserLoginDTO {
 	@NotBlank(message = "密码不能为空")
 	private String password;
 
-	@ApiModelProperty(value = "记住我", required = true)
-	@NotNull(message = "记住我不能为空")
+	@ApiModelProperty(value = "记住我")
 	private Boolean rememberMe;
 
 	@ApiModelProperty(value = "验证码图片UUID(可选，需自行对接业务逻辑)")

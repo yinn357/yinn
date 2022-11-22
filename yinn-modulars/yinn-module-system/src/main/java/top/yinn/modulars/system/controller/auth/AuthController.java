@@ -52,8 +52,7 @@ public class AuthController {
 
 		// 返回登录token
 		UserTokenVO tokenVO = UserTokenVO.builder()
-				.tokenName(StpUtil.getTokenName())
-				.tokenValue(StpUtil.getTokenValue())
+				.tokenInfo(StpUtil.getTokenInfo())
 				.roles(loginVO.getRoles())
 				.permissions(loginVO.getPermissions())
 				.build();

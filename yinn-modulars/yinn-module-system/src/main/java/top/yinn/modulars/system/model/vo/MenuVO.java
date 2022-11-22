@@ -33,17 +33,23 @@ public class MenuVO implements Serializable {
     @ApiModelProperty(value = "主键ID")
     private Long id;
 
-    @ApiModelProperty(value = "菜单名称")
-    private String menuName;
-
     @ApiModelProperty(value = "父菜单ID")
     private Long parentId;
 
-    @ApiModelProperty(value = "显示顺序")
-    private Integer orderNum;
+    @ApiModelProperty(value = "菜单标题")
+    private String title;
+
+    @ApiModelProperty(value = "菜单名称")
+    private String menuName;
+
+    @ApiModelProperty(value = "菜单图标")
+    private String icon;
 
     @ApiModelProperty(value = "路由地址")
     private String path;
+
+    @ApiModelProperty(value = "重定向")
+    private String redirect;
 
     @ApiModelProperty(value = "组件路径")
     private String component;
@@ -51,26 +57,32 @@ public class MenuVO implements Serializable {
     @ApiModelProperty(value = "路由参数")
     private String queryParam;
 
-    @ApiModelProperty(value = "是否为外链（1是 0否）")
-    private Boolean isFrame;
-
-    @ApiModelProperty(value = "是否缓存（1缓存 0不缓存）")
-    private Boolean isCache;
+    @ApiModelProperty(value = "权限标识")
+    private String permission;
 
     @ApiModelProperty(value = "菜单类型（D目录 M菜单 B按钮 E外链）")
     private String menuType;
 
-    @ApiModelProperty(value = "菜单状态（1显示 0隐藏）")
-    private Boolean visible;
+    @ApiModelProperty(value = "显示顺序")
+    private Integer orderNum;
+
+    @ApiModelProperty(value = "是否缓存（0缓存 1不缓存）")
+    private Boolean noCache;
+
+    @ApiModelProperty(value = "固定tag(1 固定 0 不固定) ")
+    private Boolean affix;
+
+    @ApiModelProperty(value = "菜单嵌套模式(1:只有一个子路由时当作跟路由)")
+    private Boolean alwaysShow;
+
+    @ApiModelProperty(value = "路由跳转（1即使hidden为true也可以跳转 0默认）")
+    private Boolean canTo;
+
+    @ApiModelProperty(value = "隐藏（1隐藏 0显示）")
+    private Boolean hidden;
 
     @ApiModelProperty(value = "菜单状态（1正常 0停用）")
     private Boolean status;
-
-    @ApiModelProperty(value = "权限标识")
-    private String perms;
-
-    @ApiModelProperty(value = "菜单图标")
-    private String icon;
 
     @ApiModelProperty(value = "备注")
     private String remark;

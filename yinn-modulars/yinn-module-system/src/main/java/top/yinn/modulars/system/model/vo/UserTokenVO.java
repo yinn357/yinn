@@ -1,5 +1,6 @@
 package top.yinn.modulars.system.model.vo;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,11 +25,8 @@ import java.util.Collection;
 @Data
 public class UserTokenVO implements Serializable {
 
-	@ApiModelProperty(value = "token名称")
-	private String tokenName;
-
-	@ApiModelProperty(value = "token值")
-	private String tokenValue;
+	@ApiModelProperty(value = "sa-token信息")
+	private SaTokenInfo tokenInfo;
 
 	@ApiModelProperty(value = "对应角色")
 	private Collection<String> roles;
